@@ -20,13 +20,16 @@ See more at http://blog.squix.ch
 
 #include <simpleDSTadjust.h>
 
-// see text.h for available text resources
+// see text.h for available text resources. Also change WUNDERGRROUND_LANGUAGE below to fetch weather data in different language 
 #define LANG 'EN'
 #include "text.h"
 
+// Config mode SSID
+const String CONFIG_SSID = "ESPaperConfig";
+
 // Setup
-#define WIFI_SSID "yourssid"
-#define WIFI_PASS "yourpassw0rd"
+String WIFI_SSID = "";
+String WIFI_PASS = "";
 
 const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 
@@ -60,6 +63,7 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 #define RST 2  // D4
 #define DC 5   // D1
 #define BUSY 4 // D2
+#define USR_BTN 12 // D6
 
 
    
@@ -69,11 +73,11 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 // e.g. http://api.wunderground.com/api/808ba87ed77c4511/conditions/q/CH/Zurich.json
 // e.g. http://api.wunderground.com/api/808ba87ed77c4511/conditions/q/CA/SAN_FRANCISCO.json <- note that in the US you use the state instead of country code
 
-const String DISPLAYED_CITY_NAME = "Zurich";
-const String WUNDERGRROUND_API_KEY = "<YOUR_API_KEY>";
-const String WUNDERGRROUND_LANGUAGE = "EN";
-const String WUNDERGROUND_COUNTRY = "CH";
-const String WUNDERGROUND_CITY = "Zurich";
+String DISPLAYED_CITY_NAME = "";
+String WUNDERGRROUND_API_KEY = "";
+String WUNDERGRROUND_LANGUAGE = "";
+String WUNDERGROUND_COUNTRY = "";
+String WUNDERGROUND_CITY = "";
 
 #define UTC_OFFSET + 1
 struct dstRule StartRule = {"CEST", Last, Sun, Mar, 2, 3600}; // Central European Summer Time = UTC/GMT +2 hours

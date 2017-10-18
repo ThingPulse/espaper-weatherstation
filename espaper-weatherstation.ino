@@ -49,11 +49,12 @@ See more at https://blog.squix.org
 #include <EPD_WaveShare.h>
 
 
+
 #include "ArialRounded.h"
 #include <MiniGrafxFonts.h>
 #include "moonphases.h"
 #include "weathericons.h"
-
+#include "configportal.h"
 
 
 
@@ -107,45 +108,72 @@ uint16_t screen = 0;
 long timerPress;
 bool canBtnPress;
 
-void connectWifi() {
-  if (WiFi.status() == WL_CONNECTED) return;
+boolean connectWifi() {
+  if (WiFi.status() == WL_CONNECTED) return true;
   //Manual Wifi
-  WiFi.begin(WIFI_SSID,WIFI_PASS);
+  Serial.print("[");
+  Serial.print(WIFI_SSID.c_str());
+  Serial.print("]");
+  Serial.print("[");
+  Serial.print(WIFI_PASS.c_str());
+  Serial.print("]");
+  WiFi.begin(WIFI_SSID.c_str(),WIFI_PASS.c_str());
   int i = 0;
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     i++;
     if (i > 20) {
-      gfx.fillBuffer(MINI_WHITE);
-      gfx.setTextAlignment(TEXT_ALIGN_CENTER);
-      gfx.drawString(296 / 2, 40, "Could not connect to WiFi\nGoing to sleep");
-      gfx.commit();
-      ESP.deepSleep(20 * 60 * 1000000);
+      Serial.println("Could not connect to WiFi");
+      return false;
     }
     Serial.print(".");
   }
+  return true;
 }
 
 void setup() {
   Serial.begin(115200);
-
-
+  pinMode(USR_BTN, INPUT_PULLUP);
+  int btnState = digitalRead(USR_BTN);
+  
   gfx.init();
   gfx.setRotation(1);
-  connectWifi();
 
-  updateData();
-  gfx.fillBuffer(MINI_WHITE);
-
-  drawTime();
-  drawBattery();
-  drawCurrentWeather();
-  drawForecast();
-  drawAstronomy();
-  drawButtons();
-
-  gfx.commit();
-  ESP.deepSleep(UPDATE_INTERVAL_SECS * 1000000);
+  // load config if it exists. Otherwise use defaults.
+  boolean mounted = SPIFFS.begin();
+  if (!mounted) {
+    SPIFFS.format();
+    SPIFFS.begin();
+  }
+  loadConfig();
+  
+  Serial.println("State: " + String(btnState));
+  if (btnState == LOW) {
+    boolean connected = connectWifi();
+    startConfigPortal(&gfx);
+  } else {
+    boolean connected = connectWifi();
+    if (connected) {
+      updateData();
+      gfx.fillBuffer(MINI_WHITE);
+    
+      drawTime();
+      drawBattery();
+      drawCurrentWeather();
+      drawForecast();
+      drawAstronomy();
+      drawButtons();
+      gfx.commit();
+    } else {
+      gfx.fillBuffer(MINI_WHITE);
+      gfx.setColor(MINI_BLACK);
+      gfx.setTextAlignment(TEXT_ALIGN_CENTER);
+      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
+      gfx.commit();
+    }
+    
+    ESP.deepSleep(UPDATE_INTERVAL_SECS * 1000000);
+  }
 }
 
 
@@ -401,7 +429,8 @@ void drawButtons() {
   gfx.drawLine(2 * third, SCREEN_HEIGHT - 12, 2 * third, SCREEN_HEIGHT);
   gfx.setTextAlignment(TEXT_ALIGN_CENTER); 
   gfx.setFont(ArialMT_Plain_10);
-  gfx.drawString(2.5 *third, SCREEN_HEIGHT - 12, FPSTR(TEXT_REFRESH_BUTTON));
+  gfx.drawString(0.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_CONFIG_BUTTON));
+  gfx.drawString(2.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_REFRESH_BUTTON));
 }
 
 String getMeteoconIcon(String iconText) {

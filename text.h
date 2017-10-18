@@ -20,12 +20,14 @@ See more at http://blog.squix.ch
 
 #if LANG == 'EN'
   const char TEXT_REFRESH_BUTTON[] PROGMEM     = "REFRESH";
+  const char TEXT_CONFIG_BUTTON[] PROGMEM      = "CONFIG + RST";
   const char TEXT_UPDATED[] PROGMEM            = "Updated:";
   const char TEXT_SUN[] PROGMEM                = "Sun:";
   const char TEXT_MOON[] PROGMEM               = "Moon:";
   const char TEXT_PHASE[] PROGMEM              = "Phase:";
 #elif LANG == 'DE'
   const char TEXT_REFRESH_BUTTON[] PROGMEM     = "AKTUALISIEREN";
+  const char TEXT_CONFIG_BUTTON[] PROGMEM      = "CONFIG + RST";
   const char TEXT_UPDATED[] PROGMEM            = "Aktualisiert:";
   const char TEXT_SUN[] PROGMEM                = "Sonne:";
   const char TEXT_MOON[] PROGMEM               = "Mond:";
