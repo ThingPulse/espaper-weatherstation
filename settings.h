@@ -1,5 +1,5 @@
 /**The MIT License (MIT)
-Copyright (c) 2015 by Daniel Eichhorn
+Copyright (c) 2017 by Daniel Eichhorn
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -20,13 +20,15 @@ See more at http://blog.squix.ch
 
 #include <simpleDSTadjust.h>
 
+// see text.h for available text resources
+#define LANG 'EN'
+#include "text.h"
+
 // Setup
 #define WIFI_SSID "yourssid"
 #define WIFI_PASS "yourpassw0rd"
 
-const int UPDATE_INTERVAL_SECS = 10 * 60; // Update every 10 minutes
-const int SLEEP_INTERVAL_SECS = 0;   // Going to Sleep after idle times, set 0 for dont sleep
-
+const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 
 /*
  * BUSY---->gpio4 
@@ -68,7 +70,7 @@ const int SLEEP_INTERVAL_SECS = 0;   // Going to Sleep after idle times, set 0 f
 // e.g. http://api.wunderground.com/api/808ba87ed77c4511/conditions/q/CA/SAN_FRANCISCO.json <- note that in the US you use the state instead of country code
 
 const String DISPLAYED_CITY_NAME = "Zurich";
-const String WUNDERGRROUND_API_KEY = "<YOUR_WUNDERGROUND_KEY>";
+const String WUNDERGRROUND_API_KEY = "<YOUR_API_KEY>";
 const String WUNDERGRROUND_LANGUAGE = "EN";
 const String WUNDERGROUND_COUNTRY = "CH";
 const String WUNDERGROUND_CITY = "Zurich";
@@ -91,6 +93,9 @@ bool IS_STYLE_12HR = false;
 // change for different ntp (time servers)
 #define NTP_SERVERS "0.ch.pool.ntp.org", "1.ch.pool.ntp.org", "2.ch.pool.ntp.org"
 // #define NTP_SERVERS "us.pool.ntp.org", "time.nist.gov", "pool.ntp.org"
+
+
+
 
 /***************************
  * End Settings

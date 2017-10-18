@@ -77,7 +77,6 @@ EPD_WaveShare epd(EPD2_9, CS, RST, DC, BUSY);
 MiniGrafx gfx = MiniGrafx(&epd, BITS_PER_PIXEL, palette);
 
 WGConditions conditions;
-//WGForecast forecasts[MAX_FORECASTS];
 WGAstronomy astronomy;
 WGHourly hourlies[24];
 
@@ -98,8 +97,8 @@ void drawBattery();
 String getMeteoconIcon(String iconText);
 const char* getMeteoconIconFromProgmem(String iconText);
 const char* getMiniMeteoconIconFromProgmem(String iconText);
-void drawForecast1();
-void drawForecast2();
+void drawForecast();
+
 
 long lastDownloadUpdate = millis();
 
@@ -115,9 +114,14 @@ void connectWifi() {
   int i = 0;
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    if (i>80) i=0;
-    drawProgress(i,"Connecting to WiFi");
-    i+=10;
+    i++;
+    if (i > 20) {
+      gfx.fillBuffer(MINI_WHITE);
+      gfx.setTextAlignment(TEXT_ALIGN_CENTER);
+      gfx.drawString(296 / 2, 40, "Could not connect to WiFi\nGoing to sleep");
+      gfx.commit();
+      ESP.deepSleep(20 * 60 * 1000000);
+    }
     Serial.print(".");
   }
 }
@@ -136,12 +140,12 @@ void setup() {
   drawTime();
   drawBattery();
   drawCurrentWeather();
-  drawForecast1();
+  drawForecast();
   drawAstronomy();
   drawButtons();
 
   gfx.commit();
-  ESP.deepSleep(20 * 60 * 1000000);
+  ESP.deepSleep(UPDATE_INTERVAL_SECS * 1000000);
 }
 
 
@@ -152,7 +156,7 @@ void loop() {
 
 // Update the internet based information and update screen
 void updateData() {
-
+  configTime(UTC_OFFSET * 3600, 0, NTP_SERVERS);
 
   //gfx.fillBuffer(MINI_WHITE);
   gfx.setColor(MINI_BLACK);
@@ -166,7 +170,7 @@ void updateData() {
   //gfx.fillBuffer(MINI_BLACK);
   gfx.setFont(ArialRoundedMTBold_14);
 
-  configTime(UTC_OFFSET * 3600, 0, NTP_SERVERS);
+  
 
   WundergroundConditions *conditionsClient = new WundergroundConditions(IS_METRIC);
   conditionsClient->updateConditions(&conditions, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
@@ -177,36 +181,26 @@ void updateData() {
   hourlyClient->updateHourly(hourlies, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
   delete hourlyClient;
   hourlyClient = nullptr;
-  /*WundergroundForecast *forecastClient = new WundergroundForecast(IS_METRIC);
-  forecastClient->updateForecast(forecasts, MAX_FORECASTS, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
-  delete forecastClient;
-  forecastClient = nullptr;*/
 
   WundergroundAstronomy *astronomyClient = new WundergroundAstronomy(IS_STYLE_12HR);
   astronomyClient->updateAstronomy(&astronomy, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
   delete astronomyClient;
   astronomyClient = nullptr;
-  moonAgeImage = String((char) (65 + 26 * (((15 + astronomy.moonAge.toInt()) % 30) / 30.0)));
+  moonAgeImage = String((char) (65 + 26 * (((astronomy.moonAge.toInt()) % 30) / 30.0)));
 
-}
+  // Wait max. 3 seconds to make sure the time has been sync'ed
+  Serial.println("\nWaiting for time");
+  unsigned timeout = 3000;
+  unsigned start = millis();
+  while (millis() - start < timeout) {
+        time_t now = time(nullptr);
+        if (now > (2016 - 1970) * 365 * 24 * 3600) {
+            return;
+        }
+        Serial.println(".");
+        delay(100);
+  }
 
-// Progress bar helper
-void drawProgress(uint8_t percentage, String text) {
-  /*gfx.fillBuffer(MINI_BLACK);
-  gfx.drawPalettedBitmapFromPgm(23, 30, SquixLogo);
-  gfx.setFont(ArialRoundedMTBold_14);
-  gfx.setTextAlignment(TEXT_ALIGN_CENTER);
-  gfx.setColor(MINI_WHITE);
-  gfx.drawString(120, 80, "https://blog.squix.org");
-  gfx.setColor(MINI_WHITE);
-
-  gfx.drawString(120, 146, text);
-  gfx.setColor(MINI_WHITE);
-  gfx.drawRect(10, 168, 240 - 20, 15);
-  gfx.setColor(MINI_WHITE);
-  gfx.fillRect(12, 170, 216 * percentage / 100, 11);
-
-  gfx.commit();*/
 }
 
 // draws the clock
@@ -222,16 +216,14 @@ void drawTime() {
   gfx.setColor(MINI_BLACK);
   String date = ctime(&now);
   date = date.substring(0,11) + String(1900 + timeinfo->tm_year);
-  //gfx.drawString(2, 108, date);
-
 
   if (IS_STYLE_12HR) {
     int hour = (timeinfo->tm_hour+11)%12+1;  // take care of noon and midnight
     sprintf(time_str, "%2d:%02d:%02d", hour, timeinfo->tm_min, timeinfo->tm_sec);
-    gfx.drawString(2, -2, "Updated: " + String(time_str));
+    gfx.drawString(2, -2, String(FPSTR(TEXT_UPDATED)) + String(time_str));
   } else {
     sprintf(time_str, "%02d:%02d:%02d", timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
-    gfx.drawString(2, -2, "Updated: " + String(time_str));
+    gfx.drawString(2, -2, String(FPSTR(TEXT_UPDATED)) + String(time_str));
   }
   gfx.drawLine(0, 11, SCREEN_WIDTH, 11);
 
@@ -272,23 +264,15 @@ void drawCurrentWeather() {
 
 }
 
-void drawForecast1() {
+void drawForecast() {
   drawForecastDetail(SCREEN_WIDTH / 2 - 20, 15, 3);
   drawForecastDetail(SCREEN_WIDTH / 2 + 22, 15, 6);
   drawForecastDetail(SCREEN_WIDTH / 2 + 64, 15, 9);
   drawForecastDetail(SCREEN_WIDTH / 2 + 106, 15, 12);
 }
 
-void drawForecast2() {
-  /*drawForecastDetail(x + 10, y + 165, 6);
-  drawForecastDetail(x + 95, y + 165, 8);
-  drawForecastDetail(x + 180, y + 165, 10);*/
-}
-
-
 // helper for the forecast columns
 void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
-
 
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_CENTER);
@@ -298,8 +282,6 @@ void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
 
   gfx.setColor(MINI_BLACK);
   gfx.drawString(x + 25, y + 12, hourlies[index].temp + "° " + hourlies[index].PoP + "%");
-  //gfx.drawString(x + 25, y + 24, hourlies[index].PoP + "%");
-
   
   gfx.setFont(Meteocons_Plain_21);
   String weatherIcon = getMeteoconIcon(hourlies[index].icon);
@@ -312,18 +294,18 @@ void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
 
 // draw moonphase and sunrise/set and moonrise/set
 void drawAstronomy() {
-
   gfx.setFont(MoonPhases_Regular_36);
   gfx.setColor(MINI_BLACK);
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   gfx.drawString(5, 72, moonAgeImage);
 
   gfx.setFont(ArialMT_Plain_10);
-  gfx.drawString(55, 72, "Sun:");
-  gfx.drawString(85, 72,  astronomy.sunriseTime + " - " + astronomy.sunsetTime);
-  gfx.drawString(55, 84, "Moon:");
-  gfx.drawString(85, 84, astronomy.moonriseTime + " - " + astronomy.moonsetTime);
-  gfx.drawString(55, 96, astronomy.moonPhase);
+  gfx.drawString(55, 72, FPSTR(TEXT_SUN));
+  gfx.drawString(95, 72,  astronomy.sunriseTime + " - " + astronomy.sunsetTime);
+  gfx.drawString(55, 84, FPSTR(TEXT_MOON));
+  gfx.drawString(95, 84, astronomy.moonriseTime + " - " + astronomy.moonsetTime);
+  gfx.drawString(55, 96, FPSTR(TEXT_PHASE));
+  gfx.drawString(95, 96, astronomy.moonPhase);
 }
 
 void drawCurrentWeatherDetail() {
@@ -332,15 +314,11 @@ void drawCurrentWeatherDetail() {
   gfx.setColor(MINI_WHITE);
   gfx.drawString(120, 2, "Current Conditions");
 
-  //gfx.setTransparentColor(MINI_BLACK);
-  //gfx.drawPalettedBitmapFromPgm(0, 20, getMeteoconIconFromProgmem(conditions.weatherIcon));
-
   String degreeSign = "°F";
   if (IS_METRIC) {
     degreeSign = "°C";
   }
-  // String weatherIcon;
-  // String weatherText;
+
   drawLabelValue(0, "Temperature:", conditions.currentTemp + degreeSign);
   drawLabelValue(1, "Feels Like:", conditions.feelslike + degreeSign);
   drawLabelValue(2, "Dew Point:", conditions.dewPoint + degreeSign);
@@ -368,6 +346,24 @@ void drawLabelValue(uint8_t line, String label, String value) {
   gfx.drawString(valueX, 30 + line * 15, value);
 }
 
+
+
+void drawBattery() {
+   uint8_t percentage = 100;
+   float power = analogRead(A0) * 4.2 / 1024.0;
+   if (power > 4.18) percentage = 100;
+   else if (power < 3.0) percentage = 0;
+   else percentage = (power - 3.0) * 100 / (4.18-3.0);
+   
+   gfx.setColor(MINI_BLACK);
+   gfx.setFont(ArialMT_Plain_10);
+   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
+   gfx.drawString(SCREEN_WIDTH - 22, -1, String(power, 2) + "V " + String(percentage) + "%");
+   gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
+   gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);   
+   gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * percentage / 100, 6);
+}
+
 // converts the dBm to a range between 0 and 100%
 int8_t getWifiQuality() {
   int32_t dbm = WiFi.RSSI();
@@ -378,22 +374,6 @@ int8_t getWifiQuality() {
   } else {
       return 2 * (dbm + 100);
   }
-}
-
-void drawBattery() {
-   uint8_t percentage = 100;
-   float power = analogRead(A0) * 49 / 10240.0;
-   if (power > 4.15) percentage = 100;
-   else if (power < 3.7) percentage = 0;
-   else percentage = (power - 3.7) * 100 / (4.15-3.7);
-   
-   gfx.setColor(MINI_BLACK);
-   gfx.setFont(ArialMT_Plain_10);
-   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
-   gfx.drawString(SCREEN_WIDTH - 22, -1, String(power, 2) + "V " + String(percentage) + "%");
-   gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
-   gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);   
-   gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * percentage / 100, 6);
 }
 
 void drawWifiQuality() {
@@ -421,7 +401,7 @@ void drawButtons() {
   gfx.drawLine(2 * third, SCREEN_HEIGHT - 12, 2 * third, SCREEN_HEIGHT);
   gfx.setTextAlignment(TEXT_ALIGN_CENTER); 
   gfx.setFont(ArialMT_Plain_10);
-  gfx.drawString(2.5 *third, SCREEN_HEIGHT - 12, "REFRESH");
+  gfx.drawString(2.5 *third, SCREEN_HEIGHT - 12, FPSTR(TEXT_REFRESH_BUTTON));
 }
 
 String getMeteoconIcon(String iconText) {
