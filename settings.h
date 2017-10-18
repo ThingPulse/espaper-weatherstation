@@ -72,6 +72,8 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 // http://api.wunderground.com/api/WUNDERGROUND_API_KEY/conditions/q/WUNDERGROUND_COUNTTRY/WUNDERGROUND_CITY.json
 // e.g. http://api.wunderground.com/api/808ba87ed77c4511/conditions/q/CH/Zurich.json
 // e.g. http://api.wunderground.com/api/808ba87ed77c4511/conditions/q/CA/SAN_FRANCISCO.json <- note that in the US you use the state instead of country code
+// If you want to have control over the exact weather station ("observation location") that WU uses you need to replace
+// the city with "pws:STATION_ID". So, for the Aquatic Park in San Francisco you'd use "pws:KCASANFR359".
 
 String DISPLAYED_CITY_NAME = "";
 String WUNDERGRROUND_API_KEY = "";
