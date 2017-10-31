@@ -32,5 +32,11 @@ See more at http://blog.squix.ch
   const char TEXT_SUN[] PROGMEM                = "Sonne:";
   const char TEXT_MOON[] PROGMEM               = "Mond:";
   const char TEXT_PHASE[] PROGMEM              = "Phase:";
+#elif LANG == 'FR'
+  const char TEXT_REFRESH_BUTTON[] PROGMEM     = "Rafraîchir";
+  const char TEXT_CONFIG_BUTTON[] PROGMEM      = "Config. + init.";
+  const char TEXT_UPDATED[] PROGMEM            = "Dernière mise à jour:";
+  const char TEXT_SUN[] PROGMEM                = "Soleil:";
+  const char TEXT_MOON[] PROGMEM               = "Lune:";
+  const char TEXT_PHASE[] PROGMEM              = "Phase:";
 #endif
-
