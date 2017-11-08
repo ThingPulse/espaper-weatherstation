@@ -158,6 +158,7 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
     
       drawTime();
+      drawWifiQuality();
       drawBattery();
       drawCurrentWeather();
       drawForecast();
@@ -382,10 +383,10 @@ void drawBattery() {
    if (power > 4.18) percentage = 100;
    else if (power < 3.0) percentage = 0;
    else percentage = (power - 3.0) * 100 / (4.18-3.0);
-   
+
    gfx.setColor(MINI_BLACK);
    gfx.setFont(ArialMT_Plain_10);
-   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
+   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
    gfx.drawString(SCREEN_WIDTH - 22, -1, String(power, 2) + "V " + String(percentage) + "%");
    gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
    gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);   
@@ -406,16 +407,17 @@ int8_t getWifiQuality() {
 
 void drawWifiQuality() {
   int8_t quality = getWifiQuality();
-  gfx.setColor(MINI_WHITE);
-  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
-  gfx.drawString(228, 9, String(quality) + "%");
+  gfx.setColor(MINI_BLACK);
+  gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
       if (quality > i * 25 || j == 0) {
-        gfx.setPixel(230 + 2 * i, 18 - j);
+        gfx.setPixel(SCREEN_WIDTH / 2 + 2 * i, 8 - j);
       }
     }
   }
+  Serial.println("WiFi: " + String(quality) + "%");
+  gfx.drawString(SCREEN_WIDTH / 2 + 10, -1, String(quality) + "%");
 }
 
 
