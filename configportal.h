@@ -294,24 +294,21 @@ void startConfigPortal(MiniGrafx *gfx) {
   gfx->setFont(ArialMT_Plain_16);
   
   if (connected) {
-      Serial.println ( "Open browser at http://" + WiFi.localIP() );
+    IPAddress myIP = WiFi.localIP();
+    String mySSID = WiFi.SSID();
+    Serial.println ( "Open browser at http://" + myIP.toString() );
 
-      gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnected to: " + WiFi.SSID() + "\nOpen browser at\nhttp://" + WiFi.localIP().toString());
-      
+    gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnected to:\n" + mySSID + "\nOpen browser at\nhttp://" + myIP.toString());
   } else {
-      WiFi.mode(WIFI_AP);
-      WiFi.softAP(CONFIG_SSID.c_str());
-      IPAddress myIP = WiFi.softAPIP();  
-      Serial.println(myIP);
-      
+    WiFi.mode(WIFI_AP);
+    WiFi.softAP(CONFIG_SSID.c_str());
+    IPAddress myIP = WiFi.softAPIP();
+    Serial.println ( "Open browser at http://" + myIP.toString() );
 
-      gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnect WiFi to:\n" + CONFIG_SSID + "\nOpen browser at\nhttp://" + myIP.toString());
-
+    gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnect WiFi to:\n" + CONFIG_SSID + "\nOpen browser at\nhttp://" + myIP.toString());
   }
 
   gfx->commit();
-
-
 
   Serial.println ( "HTTP server started" );
 
@@ -320,7 +317,4 @@ void startConfigPortal(MiniGrafx *gfx) {
     yield();
   }
 }
-
-
-
 
