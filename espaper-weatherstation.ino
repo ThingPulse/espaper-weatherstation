@@ -16,11 +16,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 See more at https://blog.squix.org
+  Copyright (c) 2017 by Daniel Eichhorn
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
 */
 
 
 /*****************************
- * Important: see settings.h to configure your settings!!!
+   Important: see settings.h to configure your settings!!!
  * ***************************/
 #include "settings.h"
 
@@ -33,11 +39,11 @@ See more at https://blog.squix.org
 
 
 /***
- * Install the following libraries through Arduino Library Manager
- * - Mini Grafx by Daniel Eichhorn
- * - ESP8266 WeatherStation by Daniel Eichhorn
- * - Json Streaming Parser by Daniel Eichhorn
- * - simpleDSTadjust by neptune2
+   Install the following libraries through Arduino Library Manager
+   - Mini Grafx by Daniel Eichhorn
+   - ESP8266 WeatherStation by Daniel Eichhorn
+   - Json Streaming Parser by Daniel Eichhorn
+   - simpleDSTadjust by neptune2
  ***/
 
 #include <JsonListener.h>
@@ -67,7 +73,7 @@ See more at https://blog.squix.org
 // defines the colors usable in the paletted 16 color frame buffer
 uint16_t palette[] = {ILI9341_BLACK, // 0
                       ILI9341_WHITE, // 1
-                      };
+                     };
 
 #define SCREEN_HEIGHT 128
 #define SCREEN_WIDTH 296
@@ -117,7 +123,7 @@ boolean connectWifi() {
   Serial.print("[");
   Serial.print(WIFI_PASS.c_str());
   Serial.print("]");
-  WiFi.begin(WIFI_SSID.c_str(),WIFI_PASS.c_str());
+  WiFi.begin(WIFI_SSID.c_str(), WIFI_PASS.c_str());
   int i = 0;
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -135,7 +141,7 @@ void setup() {
   Serial.begin(115200);
   pinMode(USR_BTN, INPUT_PULLUP);
   int btnState = digitalRead(USR_BTN);
-  
+
   gfx.init();
   gfx.setRotation(1);
 
@@ -146,7 +152,7 @@ void setup() {
     SPIFFS.begin();
   }
   loadConfig();
-  
+
   Serial.println("State: " + String(btnState));
   if (btnState == LOW) {
     boolean connected = connectWifi();
@@ -156,7 +162,7 @@ void setup() {
     if (connected) {
       updateData();
       gfx.fillBuffer(MINI_WHITE);
-    
+
       drawTime();
       drawBattery();
       drawCurrentWeather();
@@ -171,7 +177,7 @@ void setup() {
       gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
       gfx.commit();
     }
-    
+
     ESP.deepSleep(UPDATE_INTERVAL_SECS * 1000000);
   }
 }
@@ -179,7 +185,7 @@ void setup() {
 
 void loop() {
 
-  
+
 }
 
 // Update the internet based information and update screen
@@ -194,11 +200,11 @@ void updateData() {
   gfx.setTextAlignment(TEXT_ALIGN_CENTER);
   gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 12, "Refreshing data...");
   gfx.commit();
-  
+
   //gfx.fillBuffer(MINI_BLACK);
   gfx.setFont(ArialRoundedMTBold_14);
 
-  
+
 
   WundergroundConditions *conditionsClient = new WundergroundConditions(IS_METRIC);
   conditionsClient->updateConditions(&conditions, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
@@ -221,12 +227,12 @@ void updateData() {
   unsigned timeout = 3000;
   unsigned start = millis();
   while (millis() - start < timeout) {
-        time_t now = time(nullptr);
-        if (now > (2016 - 1970) * 365 * 24 * 3600) {
-            return;
-        }
-        Serial.println(".");
-        delay(100);
+    time_t now = time(nullptr);
+    if (now > (2016 - 1970) * 365 * 24 * 3600) {
+      return;
+    }
+    Serial.println(".");
+    delay(100);
   }
 
 }
@@ -243,10 +249,10 @@ void drawTime() {
   gfx.setFont(ArialMT_Plain_10);
   gfx.setColor(MINI_BLACK);
   String date = ctime(&now);
-  date = date.substring(0,11) + String(1900 + timeinfo->tm_year);
+  date = date.substring(0, 11) + String(1900 + timeinfo->tm_year);
 
   if (IS_STYLE_12HR) {
-    int hour = (timeinfo->tm_hour+11)%12+1;  // take care of noon and midnight
+    int hour = (timeinfo->tm_hour + 11) % 12 + 1; // take care of noon and midnight
     sprintf(time_str, "%2d:%02d:%02d", hour, timeinfo->tm_min, timeinfo->tm_sec);
     gfx.drawString(2, -2, String(FPSTR(TEXT_UPDATED)) + String(time_str));
   } else {
@@ -281,14 +287,14 @@ void drawCurrentWeather() {
   }
 
   String temp = conditions.currentTemp + degreeSign;
-      
+
   gfx.drawString(55, 25, temp);
 
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   gfx.drawString(55, 50, conditions.weatherText);
   gfx.drawLine(0, 65, SCREEN_WIDTH, 65);
-  
+
 
 }
 
@@ -310,7 +316,7 @@ void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
 
   gfx.setColor(MINI_BLACK);
   gfx.drawString(x + 25, y + 12, hourlies[index].temp + "° " + hourlies[index].PoP + "%");
-  
+
   gfx.setFont(Meteocons_Plain_21);
   String weatherIcon = getMeteoconIcon(hourlies[index].icon);
   gfx.drawString(x + 25, y + 24, weatherIcon);
@@ -377,37 +383,39 @@ void drawLabelValue(uint8_t line, String label, String value) {
 
 
 void drawBattery() {
-   uint8_t percentage = 100;
-   float power = analogRead(A0) * 4.2 / 1024.0;
-   if (power > 4.18) percentage = 100;
-   else if (power < 3.0) percentage = 0;
-   else percentage = (power - 3.0) * 100 / (4.18-3.0);
-   
-   gfx.setColor(MINI_BLACK);
-   gfx.setFont(ArialMT_Plain_10);
-   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
-   gfx.drawString(SCREEN_WIDTH - 22, -1, String(power, 2) + "V " + String(percentage) + "%");
-   gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
-   gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);   
-   gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * percentage / 100, 6);
+  uint8_t percentage = 100;
+  float adcVoltage = analogRead(A0) / 1024.0;
+  // This values where empirically collected
+  float batteryVoltage = adcVoltage * 4.945945946 -0.3957657658;
+  if (batteryVoltage > 4.2) percentage = 100;
+  else if (batteryVoltage < 3.3) percentage = 0;
+  else percentage = (batteryVoltage - 3.3) * 100 / (4.2 - 3.3);
+
+  gfx.setColor(MINI_BLACK);
+  gfx.setFont(ArialMT_Plain_10);
+  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
+  gfx.drawString(SCREEN_WIDTH - 22, -1, String(batteryVoltage, 2) + "V " + String(percentage) + "%");
+  gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
+  gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);
+  gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * percentage / 100, 6);
 }
 
 // converts the dBm to a range between 0 and 100%
 int8_t getWifiQuality() {
   int32_t dbm = WiFi.RSSI();
-  if(dbm <= -100) {
-      return 0;
-  } else if(dbm >= -50) {
-      return 100;
+  if (dbm <= -100) {
+    return 0;
+  } else if (dbm >= -50) {
+    return 100;
   } else {
-      return 2 * (dbm + 100);
+    return 2 * (dbm + 100);
   }
 }
 
 void drawWifiQuality() {
   int8_t quality = getWifiQuality();
   gfx.setColor(MINI_WHITE);
-  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);  
+  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
   gfx.drawString(228, 9, String(quality) + "%");
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
@@ -427,7 +435,7 @@ void drawButtons() {
   //gfx.fillRect(0, SCREEN_HEIGHT - 12, SCREEN_WIDTH, 12);
   gfx.drawLine(0, SCREEN_HEIGHT - 12, SCREEN_WIDTH, SCREEN_HEIGHT - 12);
   gfx.drawLine(2 * third, SCREEN_HEIGHT - 12, 2 * third, SCREEN_HEIGHT);
-  gfx.setTextAlignment(TEXT_ALIGN_CENTER); 
+  gfx.setTextAlignment(TEXT_ALIGN_CENTER);
   gfx.setFont(ArialMT_Plain_10);
   gfx.drawString(0.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_CONFIG_BUTTON));
   gfx.drawString(2.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_REFRESH_BUTTON));
