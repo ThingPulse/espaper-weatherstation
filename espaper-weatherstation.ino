@@ -410,7 +410,7 @@ void drawLabelValue(uint8_t line, String label, String value) {
 
 void drawBattery() {
    uint8_t percentage = 100;
-   float power = analogRead(A0) * 4.2 / 1024.0;
+   float power = analogRead(A0) * 4.7 / 1024.0;
    if (power > 4.18) percentage = 100;
    else if (power < 3.0) percentage = 0;
    else percentage = (power - 3.0) * 100 / (4.18-3.0);
