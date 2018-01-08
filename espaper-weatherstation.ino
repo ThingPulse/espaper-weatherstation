@@ -144,7 +144,8 @@ void setup() {
 
   gfx.init();
   gfx.setRotation(1);
-
+  gfx.setFastRefresh(false);
+  
   // load config if it exists. Otherwise use defaults.
   boolean mounted = SPIFFS.begin();
   if (!mounted) {
