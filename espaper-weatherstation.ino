@@ -419,7 +419,7 @@ void drawBattery() {
   uint8_t percentage = 100;
   float adcVoltage = analogRead(A0) / 1024.0;
   // This values where empirically collected
-  float batteryVoltage = adcVoltage * 4.945945946 -0.3957657658;
+  float batteryVoltage = adcVoltage * 4.179591837 + 0.171428571;
   if (batteryVoltage > 4.2) percentage = 100;
   else if (batteryVoltage < 3.3) percentage = 0;
   else percentage = (batteryVoltage - 3.3) * 100 / (4.2 - 3.3);
