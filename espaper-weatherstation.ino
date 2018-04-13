@@ -299,11 +299,24 @@ void drawCurrentWeather() {
 
 }
 
+unsigned int hourAddWrap(unsigned int hour, unsigned int add) {
+  hour += add;
+  if(hour > 23) hour -= 24;
+
+  return hour;
+}
+
 void drawForecast() {
-  drawForecastDetail(SCREEN_WIDTH / 2 - 20, 15, 3);
-  drawForecastDetail(SCREEN_WIDTH / 2 + 22, 15, 6);
-  drawForecastDetail(SCREEN_WIDTH / 2 + 64, 15, 9);
-  drawForecastDetail(SCREEN_WIDTH / 2 + 106, 15, 12);
+  time_t now = dstAdjusted.time(nullptr);
+  struct tm * timeinfo = localtime (&now);
+  
+  unsigned int curHour = timeinfo->tm_hour;
+  if(timeinfo->tm_min > 29) curHour = hourAddWrap(curHour, 1);
+
+  drawForecastDetail(SCREEN_WIDTH / 2 - 20, 15, hourAddWrap(curHour, 3));
+  drawForecastDetail(SCREEN_WIDTH / 2 + 22, 15, hourAddWrap(curHour, 6));
+  drawForecastDetail(SCREEN_WIDTH / 2 + 64, 15, hourAddWrap(curHour, 9));
+  drawForecastDetail(SCREEN_WIDTH / 2 + 106, 15, hourAddWrap(curHour, 12));
 }
 
 // helper for the forecast columns
