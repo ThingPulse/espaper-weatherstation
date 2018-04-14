@@ -208,17 +208,23 @@ void updateData() {
 
 
   WundergroundConditions *conditionsClient = new WundergroundConditions(IS_METRIC);
+  Serial.println("\nAbout to call Weather Underground to fetch station's current data...");
   conditionsClient->updateConditions(&conditions, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
+  Serial.println("...done.");
   delete conditionsClient;
   conditionsClient = nullptr;
 
   WundergroundHourly *hourlyClient = new WundergroundHourly(IS_METRIC, !IS_STYLE_12HR);
+  Serial.println("\nAbout to call Weather Underground to fetch forcast data...");
   hourlyClient->updateHourly(hourlies, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
+  Serial.println("...done.");
   delete hourlyClient;
   hourlyClient = nullptr;
 
   WundergroundAstronomy *astronomyClient = new WundergroundAstronomy(IS_STYLE_12HR);
+  Serial.println("\nAbout to call Weather Underground to fetch astronomy data...");
   astronomyClient->updateAstronomy(&astronomy, WUNDERGRROUND_API_KEY, WUNDERGRROUND_LANGUAGE, WUNDERGROUND_COUNTRY, WUNDERGROUND_CITY);
+  Serial.println("...done.");
   delete astronomyClient;
   astronomyClient = nullptr;
   moonAgeImage = String((char) (65 + 26 * (((astronomy.moonAge.toInt()) % 30) / 30.0)));
