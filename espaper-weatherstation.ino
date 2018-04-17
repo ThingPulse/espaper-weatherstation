@@ -175,7 +175,7 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
       gfx.setColor(MINI_BLACK);
       gfx.setTextAlignment(TEXT_ALIGN_CENTER);
-      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
+      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 45, "Could not connect to WiFi\n- press and hold LEFT button\n- press and release RIGHT button\n- release LEFT button\nto enter config mode.");
       gfx.commit();
     }
 
