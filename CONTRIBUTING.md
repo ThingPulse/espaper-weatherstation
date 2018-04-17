@@ -29,7 +29,7 @@ Avoid intermediate merge commits. [Rebase](https://www.atlassian.com/git/tutoria
 1. [Fork](https://help.github.com/articles/fork-a-repo) this repository on GitHub.
 1. [Create a branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/#creating-a-branch) in your fork on GitHub **based on the `master` branch**.
 1. Clone the fork on your machine with `git clone https://github.com/<your-account>/<weather-station-fork>.git`
-1. `cd <weather-station-fork>` then run `git remote add upstream https://github.com/ThingPulse/espaper-weather-station`
+1. `cd <weather-station-fork>` then run `git remote add upstream https://github.com/ThingPulse/espaper-weatherstation`
 1. `git checkout <branch-name>`
 1. Make changes to the code base and commit them using e.g. `git commit -a -m 'Look ma, I did it'`
 1. When you're done:

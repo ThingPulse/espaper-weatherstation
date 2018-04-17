@@ -11,11 +11,11 @@ Provide a [Minimal, Complete, and Verifiable example](http://stackoverflow.com/h
 ```c
 // add code here
 ```
-### Weather Station Color version
+### ESPaper Weather Station version
 Which branch are you on? If you know the Git revision then add it here as well.
 
 ### Hardware
-Describe whether you run the code on the ThingPulse Weather Station Color kit or on some custom hardware.
+Describe whether you run the code on a ThingPulse ESPaper Weather Station kit or on some custom hardware.
 
 8<------------------------ END BUG REPORT -------------------------------------
 
