@@ -29,7 +29,7 @@ const char HTTP_PORTAL_OPTIONS[] PROGMEM  = "<form action=\"/wifi\" method=\"get
 const char HTTP_ITEM[] PROGMEM            = "<div><a href='#p' onclick='c(this)'>{v}</a>&nbsp;<span class='q {i}'>{r}%</span></div>";
 const char HTTP_FORM_START[] PROGMEM      = "<form method='post' action='save'><br/>";
 const char HTTP_FORM_PARAM[] PROGMEM      = "<label for='{i}'>{p}</label><br/><input id='{i}' name='{n}' maxlength={l}  value='{v}' {c}><br/><br/>";
-const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESP</button></form>";
+const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>Save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESPaper Display</button></form>";
 const char HTTP_SCAN_LINK[] PROGMEM       = "<br/><div class=\"c\"><a href=\"/wifi\">Scan</a></div>";
 const char HTTP_SAVED[] PROGMEM           = "<div>Credentials Saved<br />Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
 const char HTTP_END[] PROGMEM             = "</div></body></html>";
@@ -210,7 +210,7 @@ void handleRoot() {
   page += getFormField("ssid", "WiFi SSID", "20", WIFI_SSID, "");
   page += getFormField("password", "WiFi Password", "20", WIFI_PASS, "");
   page += getFormField("wundergroundcity", "Wunderground City", "40", WUNDERGROUND_CITY, "");
-  page += getFormField("wundergroundstate", "Wunderground State", "40", WUNDERGROUND_COUNTRY, "");
+  page += getFormField("wundergroundstate", "<a href=\"https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching\">Wunderground Country Code</a> or State Code (US)", "40", WUNDERGROUND_COUNTRY, "");
   page += "<label for=\"wundergroundlanguage\">Wunderground Language</label>";
   page += "<select id=\"wundergroundlanguage\" name=\"wundergroundlanguage\">";
   Serial.println(WUNDERGRROUND_LANGUAGE);
