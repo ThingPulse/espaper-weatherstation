@@ -440,12 +440,12 @@ void drawWifiQuality() {
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
       if (quality > i * 25 || j == 0) {
-        gfx.setPixel(SCREEN_WIDTH / 2 + 2 * i, 8 - j);
+        gfx.setPixel(SCREEN_WIDTH / 2 + 35 + 2 * i, 8 - j);
       }
     }
   }
   Serial.println("WiFi: " + String(quality) + "%");
-  gfx.drawString(SCREEN_WIDTH / 2 + 10, -1, String(quality) + "%");
+  gfx.drawString(SCREEN_WIDTH / 2 + 45, -1, String(quality) + "%");
 }
 
 
