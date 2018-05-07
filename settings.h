@@ -78,7 +78,7 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 
 String DISPLAYED_CITY_NAME = "";
 String WUNDERGRROUND_API_KEY = "";
-String WUNDERGRROUND_LANGUAGE = "";
+String WUNDERGRROUND_LANGUAGE = ""; // as per https://www.wunderground.com/weather/api/d/docs?d=resources/country-to-iso-matching
 String WUNDERGROUND_COUNTRY = "";
 String WUNDERGROUND_CITY = "";
 
