@@ -28,10 +28,10 @@ See more at http://blog.squix.ch
 const String CONFIG_SSID = "ESPaperConfig";
 
 // Setup
-String WIFI_SSID = "";
-String WIFI_PASS = "";
+String WIFI_SSID = "yourssid";
+String WIFI_PASS = "yourpassw0rd";
 
-const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
+const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 
 /*
  * BUSY---->gpio4 
