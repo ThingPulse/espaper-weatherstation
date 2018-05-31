@@ -76,11 +76,19 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 10 minutes
 // the city with "pws:STATION_ID". So, for the Aquatic Park in San Francisco you'd use "pws:KCASANFR359".
 // Alternative query options are documented at https://www.wunderground.com/weather/api/d/docs?d=data/index&MR=1#standard_request_url_format
 
-String DISPLAYED_CITY_NAME = "";
-String WUNDERGRROUND_API_KEY = "";
-String WUNDERGRROUND_LANGUAGE = "";
-String WUNDERGROUND_COUNTRY = "";
-String WUNDERGROUND_CITY = "";
+String DISPLAYED_CITY_NAME = "Zurich";
+String OPEN_WEATHER_MAP_APP_ID = "";
+String OPEN_WEATHER_MAP_LOCATION = "Zurich,CH";
+/*
+Arabic - ar, Bulgarian - bg, Catalan - ca, Czech - cz, German - de, Greek - el,
+English - en, Persian (Farsi) - fa, Finnish - fi, French - fr, Galician - gl,
+Croatian - hr, Hungarian - hu, Italian - it, Japanese - ja, Korean - kr,
+Latvian - la, Lithuanian - lt, Macedonian - mk, Dutch - nl, Polish - pl,
+Portuguese - pt, Romanian - ro, Russian - ru, Swedish - se, Slovak - sk,
+Slovenian - sl, Spanish - es, Turkish - tr, Ukrainian - ua, Vietnamese - vi,
+Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
+*/
+String OPEN_WEATHER_MAP_LANGUAGE = "en";
 
 #define UTC_OFFSET + 1
 struct dstRule StartRule = {"CEST", Last, Sun, Mar, 2, 3600}; // Central European Summer Time = UTC/GMT +2 hours
