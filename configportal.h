@@ -145,14 +145,14 @@ boolean saveConfig() {
   f.println(WIFI_SSID);
   f.print("WIFI_PASS=");
   f.println(WIFI_PASS);
-  f.print("WUNDERGROUND_CITY=");
+  /*f.print("WUNDERGROUND_CITY=");
   f.println(WUNDERGROUND_CITY);
   f.print("WUNDERGROUND_COUNTRY=");
   f.println(WUNDERGROUND_COUNTRY);
   f.print("WUNDERGRROUND_LANGUAGE=");
   f.println(WUNDERGRROUND_LANGUAGE);
   f.print("WUNDERGRROUND_API_KEY=");
-  f.println(WUNDERGRROUND_API_KEY);
+  f.println(WUNDERGRROUND_API_KEY);*/
   f.close();
   Serial.println("Saved values");
   return true;
@@ -177,7 +177,7 @@ boolean loadConfig() {
       if (key == "WIFI_PASS") {
         WIFI_PASS = value;
       }
-      if (key == "WUNDERGROUND_CITY") {
+      /*if (key == "WUNDERGROUND_CITY") {
         WUNDERGROUND_CITY = value;
       }
       if (key == "WUNDERGROUND_COUNTRY") {
@@ -188,7 +188,7 @@ boolean loadConfig() {
       }
       if (key == "WUNDERGRROUND_API_KEY") {
         WUNDERGRROUND_API_KEY = value;
-      }
+      }*/
   }
 
   f.close();
@@ -209,7 +209,7 @@ void handleRoot() {
   page += FPSTR(HTTP_FORM_START);
   page += getFormField("ssid", "WiFi SSID", "20", WIFI_SSID, "");
   page += getFormField("password", "WiFi Password", "20", WIFI_PASS, "");
-  page += getFormField("wundergroundcity", "Wunderground City", "40", WUNDERGROUND_CITY, "");
+  /*page += getFormField("wundergroundcity", "Wunderground City", "40", WUNDERGROUND_CITY, "");
   page += getFormField("wundergroundstate", "Wunderground State", "40", WUNDERGROUND_COUNTRY, "");
   page += "<label for=\"wundergroundlanguage\">Wunderground Language</label>";
   page += "<select id=\"wundergroundlanguage\" name=\"wundergroundlanguage\">";
@@ -225,11 +225,11 @@ void handleRoot() {
       option.replace("{s}", "");
     }
     page += option;
-  }
+  }*/
   page += "</select>";
-  page += FPSTR(HTTP_WG_LANGUAGES);
+  //page += FPSTR(HTTP_WG_LANGUAGES);
   page += "<br/><br/>";
-  page += getFormField("wundergroundkey", "Wunderground API Key", "40", WUNDERGRROUND_API_KEY, "");
+  //page += getFormField("wundergroundkey", "Wunderground API Key", "40", WUNDERGRROUND_API_KEY, "");
   page += FPSTR(HTTP_FORM_END);
   page += FPSTR(HTTP_END);
 
@@ -238,7 +238,7 @@ void handleRoot() {
 }
 
 void handleSave() {
-  WIFI_SSID = server.arg("ssid");
+  /*WIFI_SSID = server.arg("ssid");
   WIFI_PASS = server.arg("password");
   WUNDERGROUND_CITY = server.arg("wundergroundcity");
   WUNDERGROUND_COUNTRY = server.arg("wundergroundstate");
@@ -249,7 +249,7 @@ void handleSave() {
   Serial.println(WUNDERGROUND_CITY);
   Serial.println(WUNDERGROUND_COUNTRY);
   Serial.println(WUNDERGRROUND_LANGUAGE);
-  Serial.println(WUNDERGRROUND_API_KEY);
+  Serial.println(WUNDERGRROUND_API_KEY);*/
   saveConfig();
   handleRoot();
 }
