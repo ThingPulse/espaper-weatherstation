@@ -235,7 +235,6 @@ void updateData() {
   float lunarMonth = 29.53;
   uint8_t moonAge = moonData.phase <= 4 ? lunarMonth * moonData.illumination / 2 : lunarMonth - moonData.illumination * lunarMonth / 2;
   moonAgeImage = String((char) (65 + ((uint8_t) ((26 * moonAge / 30) % 26))));
-  Serial.printf("Moon Image: [%s], illumination: %f, phase: %d, moonAge: %d\n", moonAgeImage.c_str(), moonData.illumination, moonData.phase, moonAge);
   delete astronomy;
   astronomy = nullptr;
 
