@@ -29,7 +29,7 @@ const char HTTP_PORTAL_OPTIONS[] PROGMEM  = "<form action=\"/wifi\" method=\"get
 const char HTTP_ITEM[] PROGMEM            = "<div><a href='#p' onclick='c(this)'>{v}</a>&nbsp;<span class='q {i}'>{r}%</span></div>";
 const char HTTP_FORM_START[] PROGMEM      = "<form method='post' action='save'><br/>";
 const char HTTP_FORM_PARAM[] PROGMEM      = "<label for='{i}'>{p}</label><br/><input id='{i}' name='{n}' maxlength={l}  value='{v}' {c}><br/><br/>";
-const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESP</button></form>";
+const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>Save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESPaper Display</button></form>";
 const char HTTP_SCAN_LINK[] PROGMEM       = "<br/><div class=\"c\"><a href=\"/wifi\">Scan</a></div>";
 const char HTTP_SAVED[] PROGMEM           = "<div>Credentials Saved<br />Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
 const char HTTP_END[] PROGMEM             = "</div></body></html>";
@@ -65,16 +65,16 @@ const char language_25[] PROGMEM = "Slovak|sk";
 const char language_26[] PROGMEM = "Slovenian|sl";
 const char language_27[] PROGMEM = "Spanish|es";
 const char language_28[] PROGMEM = "Turkish|tr";
-const char language_29[] PROGMEM = "Ukrainian|ua"; 
+const char language_29[] PROGMEM = "Ukrainian|ua";
 const char language_30[] PROGMEM = "Vietnamese|vi";
 const char language_31[] PROGMEM = "Chinese Simplified|zh_cn";
 const char language_32[] PROGMEM = "Chinese Traditional|zh_tw";
 
 const char* const language_table[] PROGMEM = {language_0, language_1, language_2, language_3, language_4, language_5, language_6,
-  language_7, language_8, language_9, language_10, language_11, language_12, language_13, language_14, language_16, language_17, 
-  language_18, language_19, language_20, language_21, language_22, language_23, language_24, language_25, language_26, language_27, 
+  language_7, language_8, language_9, language_10, language_11, language_12, language_13, language_14, language_16, language_17,
+  language_18, language_19, language_20, language_21, language_22, language_23, language_24, language_25, language_26, language_27,
   language_28, language_29, language_30, language_31, language_32};
-  
+
 ESP8266WebServer server (80);
 
 String getFormField(String id, String placeholder, String length, String value, String customHTML) {
@@ -177,9 +177,9 @@ void handleRoot() {
     String option = FPSTR(HTTP_OPTION_ITEM);
     String language = FPSTR(language_table[i]);
     int separatorPos = language.indexOf("|");
-    
+
     String label = language.substring(0, separatorPos);
-    String key = language.substring(separatorPos + 1); 
+    String key = language.substring(separatorPos + 1);
     option.replace("{v}", key);
     option.replace("{n}", label);
     if (key == OPEN_WEATHER_MAP_LANGUAGE) {
@@ -195,7 +195,7 @@ void handleRoot() {
   server.sendContent(FPSTR(HTTP_FORM_END));
   server.sendContent(FPSTR(HTTP_END));
   server.client().stop();
-  
+
 }
 
 void handleSave() {
@@ -253,18 +253,18 @@ void startConfigPortal(MiniGrafx *gfx) {
   gfx->setColor(0);
   gfx->setTextAlignment(TEXT_ALIGN_CENTER);
   gfx->setFont(ArialMT_Plain_16);
-  
+
   if (connected) {
       Serial.println ( "Open browser at http://" + WiFi.localIP() );
 
       gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnected to: " + WiFi.SSID() + "\nOpen browser at\nhttp://" + WiFi.localIP().toString());
-      
+
   } else {
       WiFi.mode(WIFI_AP);
       WiFi.softAP(CONFIG_SSID.c_str());
-      IPAddress myIP = WiFi.softAPIP();  
+      IPAddress myIP = WiFi.softAPIP();
       Serial.println(myIP);
-      
+
 
       gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnect WiFi to:\n" + CONFIG_SSID + "\nOpen browser at\nhttp://" + myIP.toString());
 
@@ -281,7 +281,3 @@ void startConfigPortal(MiniGrafx *gfx) {
     yield();
   }
 }
-
-
-
-

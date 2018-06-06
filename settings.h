@@ -20,7 +20,7 @@ See more at http://blog.squix.ch
 
 #include <simpleDSTadjust.h>
 
-// see text.h for available text resources. Also change WUNDERGRROUND_LANGUAGE below to fetch weather data in different language 
+// see text.h for available text resources. Also change WUNDERGRROUND_LANGUAGE below to fetch weather data in different language
 #define LANG 'EN'
 #include "text.h"
 
@@ -34,14 +34,14 @@ String WIFI_PASS = "";
 const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 
 /*
- * BUSY---->gpio4 
- * RST---->gpio2 
- * DC---->gpio5 
- * CS---->gpio15 
- * CLK---->gpio14 
+ * BUSY---->gpio4
+ * RST---->gpio2
+ * DC---->gpio5
+ * CS---->gpio15
+ * CLK---->gpio14
  * DIN---->gpio13
- * Buttons : Reset ( RST pins on esp ) , 
- * Flash ( GPIO-0 10K pull up ) 
+ * Buttons : Reset ( RST pins on esp ) ,
+ * Flash ( GPIO-0 10K pull up )
  * User button ( GPIO-12 10K pull up )
  */
  /*
@@ -66,7 +66,7 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 #define USR_BTN 12 // D6
 
 
-   
+
 // Wunderground Settings
 // To check your settings first try them out in your browser:
 // http://api.wunderground.com/api/WUNDERGROUND_API_KEY/conditions/q/WUNDERGROUND_COUNTTRY/WUNDERGROUND_CITY.json
@@ -118,4 +118,3 @@ bool IS_STYLE_12HR = false;
 /***************************
  * End Settings
  **************************/
-
