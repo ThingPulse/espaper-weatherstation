@@ -170,7 +170,6 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
 
       drawTime();
-      drawWifiQuality();
       drawBattery();
       drawCurrentWeather();
       drawForecast();
@@ -182,7 +181,7 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
       gfx.setColor(MINI_BLACK);
       gfx.setTextAlignment(TEXT_ALIGN_CENTER);
-      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 45, "Could not connect to WiFi\n- press and hold LEFT button\n- press and release RIGHT button\n- release LEFT button\nto enter config mode.");
+      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
       gfx.commit();
     }
     Serial.println("Going to sleep");
@@ -232,8 +231,11 @@ void updateData() {
   Astronomy *astronomy = new Astronomy();
   time_t now = time(nullptr) + dstOffset;
   moonData = astronomy->calculateMoonData(now);
-  moonAgeImage = String((char) (65 + ((uint8_t) (26 * moonData.illumination)) % 26 ));
-  Serial.println("Moon Image: [" + moonAgeImage + "]");
+  // illumination is not uniquely clear to identify moon age. e.g. 70% illumination happens twice in a full cycle
+  float lunarMonth = 29.53;
+  uint8_t moonAge = moonData.phase <= 4 ? lunarMonth * moonData.illumination / 2 : lunarMonth - moonData.illumination * lunarMonth / 2;
+  moonAgeImage = String((char) (65 + ((uint8_t) ((26 * moonAge / 30) % 26))));
+  Serial.printf("Moon Image: [%s], illumination: %f, phase: %d, moonAge: %d\n", moonAgeImage.c_str(), moonData.illumination, moonData.phase, moonAge);
   delete astronomy;
   astronomy = nullptr;
 
@@ -443,17 +445,16 @@ int8_t getWifiQuality() {
 
 void drawWifiQuality() {
   int8_t quality = getWifiQuality();
-  gfx.setColor(MINI_BLACK);
-  gfx.setTextAlignment(TEXT_ALIGN_LEFT);
+  gfx.setColor(MINI_WHITE);
+  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
+  gfx.drawString(228, 9, String(quality) + "%");
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
       if (quality > i * 25 || j == 0) {
-        gfx.setPixel(SCREEN_WIDTH / 2 + 35 + 2 * i, 8 - j);
+        gfx.setPixel(230 + 2 * i, 18 - j);
       }
     }
   }
-  Serial.println("WiFi: " + String(quality) + "%");
-  gfx.drawString(SCREEN_WIDTH / 2 + 45, -1, String(quality) + "%");
 }
 
 
