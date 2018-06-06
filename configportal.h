@@ -36,90 +36,45 @@ const char HTTP_END[] PROGMEM             = "</div></body></html>";
 const char HTTP_OPTION_ITEM[] PROGMEM     = "<option value=\"{v}\" {s}>{n}</option>";
 const char HTTP_WG_LANGUAGES[] PROGMEM    = "See <a href='https://www.wunderground.com/weather/api/d/docs?d=language-support' target=_blank>Language Codes</a> for explanation.";
 
-const char country_0[] PROGMEM = "AF";
-const char country_1[] PROGMEM = "AL";
-const char country_2[] PROGMEM = "AR";
-const char country_3[] PROGMEM = "AZ";
-const char country_4[] PROGMEM = "BR";
-const char country_5[] PROGMEM = "BU";
-const char country_6[] PROGMEM = "BY";
-const char country_7[] PROGMEM = "CA";
-const char country_8[] PROGMEM = "CH";
-const char country_9[] PROGMEM = "CN";
-const char country_10[] PROGMEM = "CR";
-const char country_11[] PROGMEM = "CY";
-const char country_12[] PROGMEM = "CZ";
-const char country_13[] PROGMEM = "DK";
-const char country_14[] PROGMEM = "DL";
-const char country_15[] PROGMEM = "DV";
-const char country_16[] PROGMEM = "EN";
-const char country_17[] PROGMEM = "EO";
-const char country_18[] PROGMEM = "ET";
-const char country_19[] PROGMEM = "EU";
-const char country_20[] PROGMEM = "FA";
-const char country_21[] PROGMEM = "FC";
-const char country_22[] PROGMEM = "FI";
-const char country_23[] PROGMEM = "FR";
-const char country_24[] PROGMEM = "GM";
-const char country_25[] PROGMEM = "GN";
-const char country_26[] PROGMEM = "GR";
-const char country_27[] PROGMEM = "GU";
-const char country_28[] PROGMEM = "GZ";
-const char country_29[] PROGMEM = "HI";
-const char country_30[] PROGMEM = "HT";
-const char country_31[] PROGMEM = "HU";
-const char country_32[] PROGMEM = "HY";
-const char country_33[] PROGMEM = "ID";
-const char country_34[] PROGMEM = "IL";
-const char country_35[] PROGMEM = "IO";
-const char country_36[] PROGMEM = "IR";
-const char country_37[] PROGMEM = "IS";
-const char country_38[] PROGMEM = "IT";
-const char country_39[] PROGMEM = "JI";
-const char country_40[] PROGMEM = "JP";
-const char country_41[] PROGMEM = "JW";
-const char country_42[] PROGMEM = "KA";
-const char country_43[] PROGMEM = "KM";
-const char country_44[] PROGMEM = "KR";
-const char country_45[] PROGMEM = "KU";
-const char country_46[] PROGMEM = "LA";
-const char country_47[] PROGMEM = "LI";
-const char country_48[] PROGMEM = "LT";
-const char country_49[] PROGMEM = "LV";
-const char country_50[] PROGMEM = "MI";
-const char country_51[] PROGMEM = "MK";
-const char country_52[] PROGMEM = "MN";
-const char country_53[] PROGMEM = "MR";
-const char country_54[] PROGMEM = "MT";
-const char country_55[] PROGMEM = "MY";
-const char country_56[] PROGMEM = "ND";
-const char country_57[] PROGMEM = "NL";
-const char country_58[] PROGMEM = "NO";
-const char country_59[] PROGMEM = "OC";
-const char country_60[] PROGMEM = "PA";
-const char country_61[] PROGMEM = "PL";
-const char country_62[] PROGMEM = "PS";
-const char country_63[] PROGMEM = "RO";
-const char country_64[] PROGMEM = "RU";
-const char country_65[] PROGMEM = "SI";
-const char country_66[] PROGMEM = "SK";
-const char country_67[] PROGMEM = "SL";
-const char country_68[] PROGMEM = "SN";
-const char country_69[] PROGMEM = "SP";
-const char country_70[] PROGMEM = "SR";
-const char country_71[] PROGMEM = "SW";
-const char country_72[] PROGMEM = "TH";
-const char country_73[] PROGMEM = "TK";
-const char country_74[] PROGMEM = "TL";
-const char country_75[] PROGMEM = "TR";
-const char country_76[] PROGMEM = "TT";
-const char country_77[] PROGMEM = "TW";
-const char country_78[] PROGMEM = "UA";
-const char country_79[] PROGMEM = "UZ";
-const char country_80[] PROGMEM = "VU";
-const char country_81[] PROGMEM = "YI";
+const char language_0[] PROGMEM = "Arabic|ar";
+const char language_1[] PROGMEM = "Bulgarian|bg";
+const char language_2[] PROGMEM = "Catalan|ca";
+const char language_3[] PROGMEM = "Czech|cz";
+const char language_4[] PROGMEM = "German|de";
+const char language_5[] PROGMEM = "Greek|el";
+const char language_6[] PROGMEM = "English|en";
+const char language_7[] PROGMEM = "Persian (Farsi)|fa";
+const char language_8[] PROGMEM = "Finnish|fi";
+const char language_9[] PROGMEM = "French|fr";
+const char language_10[] PROGMEM = "Galician|gl";
+const char language_11[] PROGMEM = "Croatian|hr";
+const char language_12[] PROGMEM = "Hungarian|hu";
+const char language_13[] PROGMEM = "Italian|it";
+const char language_14[] PROGMEM = "Japanese|ja";
+const char language_15[] PROGMEM = "Korean|kr";
+const char language_16[] PROGMEM = "Latvian|la";
+const char language_17[] PROGMEM = "Lithuanian|lt";
+const char language_18[] PROGMEM = "Macedonian|mk";
+const char language_19[] PROGMEM = "Dutch|nl";
+const char language_20[] PROGMEM = "Polish|pl";
+const char language_21[] PROGMEM = "Portuguese|pt";
+const char language_22[] PROGMEM = "Romanian|ro";
+const char language_23[] PROGMEM = "Russian|ru";
+const char language_24[] PROGMEM = "Swedish|se";
+const char language_25[] PROGMEM = "Slovak|sk";
+const char language_26[] PROGMEM = "Slovenian|sl";
+const char language_27[] PROGMEM = "Spanish|es";
+const char language_28[] PROGMEM = "Turkish|tr";
+const char language_29[] PROGMEM = "Ukrainian|ua"; 
+const char language_30[] PROGMEM = "Vietnamese|vi";
+const char language_31[] PROGMEM = "Chinese Simplified|zh_cn";
+const char language_32[] PROGMEM = "Chinese Traditional|zh_tw";
 
-const char* const country_table[] PROGMEM = {country_0, country_1, country_2, country_3, country_4, country_5, country_6, country_7, country_8, country_9, country_10, country_11, country_12, country_13, country_14, country_15, country_16, country_17, country_18, country_19, country_20, country_21, country_22, country_23, country_24, country_25, country_26, country_27, country_28, country_29, country_30, country_31, country_32, country_33, country_34, country_35, country_36, country_37, country_38, country_39, country_40, country_41, country_42, country_43, country_44, country_45, country_46, country_47, country_48, country_49, country_50, country_51, country_52, country_53, country_54, country_55, country_56, country_57, country_58, country_59, country_60, country_61, country_62, country_63, country_64, country_65, country_66, country_67, country_68, country_69, country_70, country_71, country_72, country_73, country_74, country_75, country_76, country_77, country_78, country_79, country_80, country_81};
+const char* const language_table[] PROGMEM = {language_0, language_1, language_2, language_3, language_4, language_5, language_6,
+  language_7, language_8, language_9, language_10, language_11, language_12, language_13, language_14, language_16, language_17, 
+  language_18, language_19, language_20, language_21, language_22, language_23, language_24, language_25, language_26, language_27, 
+  language_28, language_29, language_30, language_31, language_32};
+  
 ESP8266WebServer server (80);
 
 String getFormField(String id, String placeholder, String length, String value, String customHTML) {
@@ -145,20 +100,21 @@ boolean saveConfig() {
   f.println(WIFI_SSID);
   f.print("WIFI_PASS=");
   f.println(WIFI_PASS);
-  /*f.print("WUNDERGROUND_CITY=");
-  f.println(WUNDERGROUND_CITY);
-  f.print("WUNDERGROUND_COUNTRY=");
-  f.println(WUNDERGROUND_COUNTRY);
-  f.print("WUNDERGRROUND_LANGUAGE=");
-  f.println(WUNDERGRROUND_LANGUAGE);
-  f.print("WUNDERGRROUND_API_KEY=");
-  f.println(WUNDERGRROUND_API_KEY);*/
+  f.print("DISPLAYED_CITY_NAME=");
+  f.println(DISPLAYED_CITY_NAME);
+  f.print("OPEN_WEATHER_MAP_APP_ID=");
+  f.println(OPEN_WEATHER_MAP_APP_ID);
+  f.print("OPEN_WEATHER_MAP_LOCATION=");
+  f.println(OPEN_WEATHER_MAP_LOCATION);
+  f.print("OPEN_WEATHER_MAP_LANGUAGE=");
+  f.println(OPEN_WEATHER_MAP_LANGUAGE);
   f.close();
   Serial.println("Saved values");
   return true;
 }
 
 boolean loadConfig() {
+  Serial.println("Loading config");
   File f = SPIFFS.open("/espaper.txt", "r");
   if (!f) {
     Serial.println("Failed to open config file");
@@ -177,18 +133,18 @@ boolean loadConfig() {
       if (key == "WIFI_PASS") {
         WIFI_PASS = value;
       }
-      /*if (key == "WUNDERGROUND_CITY") {
-        WUNDERGROUND_CITY = value;
+      if (key == "DISPLAYED_CITY_NAME") {
+        DISPLAYED_CITY_NAME = value;
       }
-      if (key == "WUNDERGROUND_COUNTRY") {
-        WUNDERGROUND_COUNTRY = value;
+      if (key == "OPEN_WEATHER_MAP_APP_ID") {
+        OPEN_WEATHER_MAP_APP_ID = value;
       }
-      if (key == "WUNDERGRROUND_LANGUAGE") {
-        WUNDERGRROUND_LANGUAGE = value;
+      if (key == "OPEN_WEATHER_MAP_LOCATION") {
+        OPEN_WEATHER_MAP_LOCATION = value;
       }
-      if (key == "WUNDERGRROUND_API_KEY") {
-        WUNDERGRROUND_API_KEY = value;
-      }*/
+      if (key == "OPEN_WEATHER_MAP_LANGUAGE") {
+        OPEN_WEATHER_MAP_LANGUAGE = value;
+      }
   }
 
   f.close();
@@ -197,59 +153,64 @@ boolean loadConfig() {
 }
 
 void handleRoot() {
-  String page = FPSTR(HTTP_HEAD);
-  page.replace("{v}", "Options");
-  page += FPSTR(HTTP_SCRIPT);
-  page += FPSTR(HTTP_STYLE);
-  //page += _customHeadElement;
-  page += FPSTR(HTTP_HEAD_END);
-  page += "<h1>ESPaper Configuration</h1>";
+  server.setContentLength(CONTENT_LENGTH_UNKNOWN);
+  server.send(200, "text/html", "");
+  String header = FPSTR(HTTP_HEAD);
+  header.replace("{v}", "Options");
+  server.sendContent(header);
+  server.sendContent(FPSTR(HTTP_SCRIPT));
+  server.sendContent(FPSTR(HTTP_STYLE));
+  server.sendContent(FPSTR(HTTP_HEAD_END));
+  server.sendContent("<h1>ESPaper Configuration</h1>");
 
   //page += FPSTR(HTTP_PORTAL_OPTIONS);
-  page += FPSTR(HTTP_FORM_START);
-  page += getFormField("ssid", "WiFi SSID", "20", WIFI_SSID, "");
-  page += getFormField("password", "WiFi Password", "20", WIFI_PASS, "");
-  /*page += getFormField("wundergroundcity", "Wunderground City", "40", WUNDERGROUND_CITY, "");
-  page += getFormField("wundergroundstate", "Wunderground State", "40", WUNDERGROUND_COUNTRY, "");
-  page += "<label for=\"wundergroundlanguage\">Wunderground Language</label>";
-  page += "<select id=\"wundergroundlanguage\" name=\"wundergroundlanguage\">";
-  Serial.println(WUNDERGRROUND_LANGUAGE);
-  for (int i = 0; i < 82; i++) {
+  server.sendContent(FPSTR(HTTP_FORM_START));
+  server.sendContent(getFormField("ssid", "WiFi SSID", "20", WIFI_SSID, ""));
+  server.sendContent(getFormField("password", "WiFi Password", "20", WIFI_PASS, ""));
+  server.sendContent(getFormField("displayedcityname", "Displayed City Name", "40", DISPLAYED_CITY_NAME, ""));
+  server.sendContent(getFormField("openweathermapkey", "OpenWeatherMap App ID", "40", OPEN_WEATHER_MAP_APP_ID, ""));
+  server.sendContent(getFormField("openweathermaplocation", "OpenWeatherMap Location (e.g.Zurich,CH)", "40", OPEN_WEATHER_MAP_LOCATION, ""));
+  server.sendContent("<label for=\"openweathermaplanguage\">OpenWeatherMap Language</label>");
+  server.sendContent("<select id=\"openweathermaplanguage\" name=\"openweathermaplanguage\">");
+
+  for (int i = 0; i < 32; i++) {
     String option = FPSTR(HTTP_OPTION_ITEM);
-    String country = FPSTR(country_table[i]);
-    option.replace("{v}", country);
-    option.replace("{n}", country);
-    if (country == WUNDERGRROUND_LANGUAGE) {
+    String language = FPSTR(language_table[i]);
+    int separatorPos = language.indexOf("|");
+    
+    String label = language.substring(0, separatorPos);
+    String key = language.substring(separatorPos + 1); 
+    option.replace("{v}", key);
+    option.replace("{n}", label);
+    if (key == OPEN_WEATHER_MAP_LANGUAGE) {
       option.replace("{s}", "selected");
     } else {
       option.replace("{s}", "");
     }
-    page += option;
-  }*/
-  page += "</select>";
-  //page += FPSTR(HTTP_WG_LANGUAGES);
-  page += "<br/><br/>";
-  //page += getFormField("wundergroundkey", "Wunderground API Key", "40", WUNDERGRROUND_API_KEY, "");
-  page += FPSTR(HTTP_FORM_END);
-  page += FPSTR(HTTP_END);
-
-  server.sendHeader("Content-Length", String(page.length()));
-  server.send(200, "text/html", page);
+    server.sendContent(option);
+    yield();
+  }
+  server.sendContent("</select>");
+  server.sendContent("<br/><br/>");
+  server.sendContent(FPSTR(HTTP_FORM_END));
+  server.sendContent(FPSTR(HTTP_END));
+  server.client().stop();
+  
 }
 
 void handleSave() {
-  /*WIFI_SSID = server.arg("ssid");
+  WIFI_SSID = server.arg("ssid");
   WIFI_PASS = server.arg("password");
-  WUNDERGROUND_CITY = server.arg("wundergroundcity");
-  WUNDERGROUND_COUNTRY = server.arg("wundergroundstate");
-  WUNDERGRROUND_LANGUAGE = server.arg("wundergroundlanguage");
-  WUNDERGRROUND_API_KEY = server.arg("wundergroundkey");
+  DISPLAYED_CITY_NAME = server.arg("displayedcityname");
+  OPEN_WEATHER_MAP_APP_ID = server.arg("openweathermapkey");
+  OPEN_WEATHER_MAP_LOCATION = server.arg("openweathermaplocation");
+  OPEN_WEATHER_MAP_LANGUAGE = server.arg("openweathermaplanguage");
   Serial.println(WIFI_SSID);
   Serial.println(WIFI_PASS);
-  Serial.println(WUNDERGROUND_CITY);
-  Serial.println(WUNDERGROUND_COUNTRY);
-  Serial.println(WUNDERGRROUND_LANGUAGE);
-  Serial.println(WUNDERGRROUND_API_KEY);*/
+  Serial.println(DISPLAYED_CITY_NAME);
+  Serial.println(OPEN_WEATHER_MAP_APP_ID);
+  Serial.println(OPEN_WEATHER_MAP_LOCATION);
+  Serial.println(OPEN_WEATHER_MAP_LANGUAGE);
   saveConfig();
   handleRoot();
 }

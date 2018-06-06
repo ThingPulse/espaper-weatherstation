@@ -28,8 +28,8 @@ See more at http://blog.squix.ch
 const String CONFIG_SSID = "ESPaperConfig";
 
 // Setup
-String WIFI_SSID = "yourssid";
-String WIFI_PASS = "yourpassw0rd";
+String WIFI_SSID = "";
+String WIFI_PASS = "";
 
 const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 
@@ -76,9 +76,9 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 // the city with "pws:STATION_ID". So, for the Aquatic Park in San Francisco you'd use "pws:KCASANFR359".
 // Alternative query options are documented at https://www.wunderground.com/weather/api/d/docs?d=data/index&MR=1#standard_request_url_format
 
-String DISPLAYED_CITY_NAME = "Zurich";
+String DISPLAYED_CITY_NAME = "";
 String OPEN_WEATHER_MAP_APP_ID = "";
-String OPEN_WEATHER_MAP_LOCATION = "Zurich,CH";
+String OPEN_WEATHER_MAP_LOCATION = "";
 /*
 Arabic - ar, Bulgarian - bg, Catalan - ca, Czech - cz, German - de, Greek - el,
 English - en, Persian (Farsi) - fa, Finnish - fi, French - fr, Galician - gl,
@@ -88,7 +88,7 @@ Portuguese - pt, Romanian - ro, Russian - ru, Swedish - se, Slovak - sk,
 Slovenian - sl, Spanish - es, Turkish - tr, Ukrainian - ua, Vietnamese - vi,
 Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
 */
-String OPEN_WEATHER_MAP_LANGUAGE = "en";
+String OPEN_WEATHER_MAP_LANGUAGE = "";
 
 const String MOON_PHASES[] = {"New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous",
                               "Full Moon", "Waning Gibbous", "Third quarter", "Waning Crescent"};

@@ -141,6 +141,7 @@ boolean connectWifi() {
 
 void setup() {
   Serial.begin(115200);
+  Serial.println("Woke up");
   pinMode(USR_BTN, INPUT_PULLUP);
   int btnState = digitalRead(USR_BTN);
 
@@ -151,7 +152,9 @@ void setup() {
   // load config if it exists. Otherwise use defaults.
   boolean mounted = SPIFFS.begin();
   if (!mounted) {
+    Serial.println("FS not formatted. Doing that now");
     SPIFFS.format();
+    Serial.println("FS formatted...");
     SPIFFS.begin();
   }
   loadConfig();
@@ -181,7 +184,7 @@ void setup() {
       gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
       gfx.commit();
     }
-
+    Serial.println("Going to sleep");
     ESP.deepSleep(UPDATE_INTERVAL_SECS * 1000000);
   }
 }
@@ -330,9 +333,12 @@ void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
 }
 
 void drawTempChart() {
+  if (foundForecasts == 0) {
+    return;
+  }
   float minTemp = 999;
   float maxTemp = -999;
-  for (int i = 0; i < MAX_FORECASTS; i++) {
+  for (int i = 0; i < foundForecasts; i++) {
     float temp = forecasts[i].temp;
     if (temp > maxTemp) {
       maxTemp = temp;
@@ -396,10 +402,11 @@ void drawAstronomy() {
 
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   gfx.setFont(ArialMT_Plain_10);
-  gfx.drawString(55, 64, FPSTR(TEXT_SUN));
-  gfx.drawString(55, 74,  getTime(conditions.sunrise) + " - " + getTime(conditions.sunset));
-  gfx.drawString(55, 84, FPSTR(TEXT_MOON));
-  gfx.drawString(55, 94, MOON_PHASES[moonData.phase]);
+  gfx.drawString(55, 69, FPSTR(TEXT_SUN));
+  gfx.drawString(55, 79,  getTime(conditions.sunrise) + " - " + getTime(conditions.sunset));
+  gfx.drawString(55, 89, FPSTR(TEXT_MOON));
+  gfx.drawString(55, 99, MOON_PHASES[moonData.phase]);
+  // Moon time not yet supported
   //gfx.drawString(55, 104, "8:30 - 11:20");
 }
 
