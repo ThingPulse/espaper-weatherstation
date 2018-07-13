@@ -6,6 +6,11 @@ ESPaper Weather Station with a passive e-paper display
 
 [![ThingPulse ESPaper Kits](https://thingpulse.com/wp-content/uploads/2018/01/FrontWeatherAppReflection-e1515916701463.jpg)](https://thingpulse.com/product-category/espaper-epaper-kits/)
 
+## Service level promise
+
+<table><tr><td><img src="https://thingpulse.com/assets/ThingPulse-open-source-prime.png" width="150">
+</td><td>This is a ThingPulse <em>prime</em> project. See our <a href="https://thingpulse.com/about/open-source-commitment/">open-source commitment declaration</a> for what this means.</td></tr></table>
+
 ## Step-by-step tutorial
 
 A complete step-by-step tutorial/guide is available at [https://docs.thingpulse.com/guides/espaper-plus-kit/](https://docs.thingpulse.com/guides/espaper-plus-kit/).
