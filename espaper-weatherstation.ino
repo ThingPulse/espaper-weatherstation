@@ -287,7 +287,7 @@ void drawCurrentWeather() {
 
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
-  gfx.drawString(55, 50, conditions.main);
+  gfx.drawString(55, 50, conditions.description);
   gfx.drawLine(0, 65, SCREEN_WIDTH, 65);
 
 
