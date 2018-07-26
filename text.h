@@ -24,19 +24,22 @@ See more at http://blog.squix.ch
   const char TEXT_UPDATED[] PROGMEM            = "Updated:";
   const char TEXT_SUN[] PROGMEM                = "Sun:";
   const char TEXT_MOON[] PROGMEM               = "Moon:";
-  const char TEXT_PHASE[] PROGMEM              = "Phase:";
+  const String MOON_PHASES[]                   = {"New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous",
+                                                  "Full Moon", "Waning Gibbous", "Third quarter", "Waning Crescent"};
 #elif LANG == 'DE'
   const char TEXT_REFRESH_BUTTON[] PROGMEM     = "AKTUALISIEREN";
   const char TEXT_CONFIG_BUTTON[] PROGMEM      = "CONFIG + RST";
   const char TEXT_UPDATED[] PROGMEM            = "Aktualisiert:";
   const char TEXT_SUN[] PROGMEM                = "Sonne:";
   const char TEXT_MOON[] PROGMEM               = "Mond:";
-  const char TEXT_PHASE[] PROGMEM              = "Phase:";
+  const String MOON_PHASES[]                   = {"Neumond", "erstes Viertel", "zunehmender Halbmond", "zweites Viertel",
+                                                  "Vollmond", "drittes Viertel", "abnehmender Halbmond", "letztes Viertel"};
 #elif LANG == 'FR'
   const char TEXT_REFRESH_BUTTON[] PROGMEM     = "ACTUALISER";
   const char TEXT_CONFIG_BUTTON[] PROGMEM      = "CONFIG + RST";
   const char TEXT_UPDATED[] PROGMEM            = "Mise à jour ";
   const char TEXT_SUN[] PROGMEM                = "Soleil:";
   const char TEXT_MOON[] PROGMEM               = "Lune:";
-  const char TEXT_PHASE[] PROGMEM              = "Phase:";
+  const String MOON_PHASES[]                   = {"New Moon", "premier croissant", "premier quartier", "gibbeuse croissante",
+                                                  "pleine lune", "gibbeuse décroissante", "dernier quartier", "dernier croissant"};  
 #endif
