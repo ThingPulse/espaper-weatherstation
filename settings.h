@@ -33,6 +33,46 @@ String WIFI_PASS = "";
 
 const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 
+// OpenWeatherMap Settings as per https://docs.thingpulse.com/guides/espaper-plus-kit/#configuration-customization
+// Sign up here to get an API key: https://docs.thingpulse.com/how-tos/openweathermap-key/
+String DISPLAYED_CITY_NAME = "";
+String OPEN_WEATHER_MAP_APP_ID = "";
+String OPEN_WEATHER_MAP_LOCATION = "";
+/*
+Arabic -> ar, Bulgarian -> bg, Catalan -> ca, Czech -> cz, German -> de, Greek -> el,
+English -> en, Persian (Farsi) -> fa, Finnish -> fi, French -> fr, Galician -> gl,
+Croatian -> hr, Hungarian -> hu, Italian -> it, Japanese -> ja, Korean -> kr,
+Latvian -> la, Lithuanian -> lt, Macedonian -> mk, Dutch -> nl, Polish -> pl,
+Portuguese -> pt, Romanian -> ro, Russian -> ru, Swedish -> se, Slovak -> sk,
+Slovenian -> sl, Spanish -> es, Turkish -> tr, Ukrainian -> ua, Vietnamese -> vi,
+Chinese Simplified -> zh_cn, Chinese Traditional -> zh_tw.
+*/
+String OPEN_WEATHER_MAP_LANGUAGE = "en";
+
+const String MOON_PHASES[] = {"New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous",
+                              "Full Moon", "Waning Gibbous", "Third quarter", "Waning Crescent"};
+
+#define UTC_OFFSET + 1
+struct dstRule StartRule = {"CEST", Last, Sun, Mar, 2, 3600}; // Central European Summer Time = UTC/GMT +2 hours
+struct dstRule EndRule = {"CET", Last, Sun, Oct, 2, 0};       // Central European Time = UTC/GMT +1 hour
+
+// Settings for Boston
+// #define UTC_OFFSET -5
+// struct dstRule StartRule = {"EDT", Second, Sun, Mar, 2, 3600}; // Eastern Daylight time = UTC/GMT -4 hours
+// struct dstRule EndRule = {"EST", First, Sun, Nov, 1, 0};       // Eastern Standard time = UTC/GMT -5 hour
+
+// values in metric or imperial system?
+bool IS_METRIC = true;
+
+// Change for 12 Hour/ 24 hour style clock
+bool IS_STYLE_12HR = false;
+
+// change for different ntp (time servers)
+#define NTP_SERVERS "0.ch.pool.ntp.org", "1.ch.pool.ntp.org", "2.ch.pool.ntp.org"
+// #define NTP_SERVERS "us.pool.ntp.org", "time.nist.gov", "pool.ntp.org"
+
+
+
 /*
  * BUSY---->gpio4
  * RST---->gpio2
@@ -64,47 +104,6 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 #define DC 5   // D1
 #define BUSY 4 // D2
 #define USR_BTN 12 // D6
-
-
-// OpenWeatherMap Settings
-// Sign up here to get an API key: https://docs.thingpulse.com/how-tos/openweathermap-key/
-String DISPLAYED_CITY_NAME = "";
-String OPEN_WEATHER_MAP_APP_ID = "";
-String OPEN_WEATHER_MAP_LOCATION = "";
-/*
-Arabic - ar, Bulgarian - bg, Catalan - ca, Czech - cz, German - de, Greek - el,
-English - en, Persian (Farsi) - fa, Finnish - fi, French - fr, Galician - gl,
-Croatian - hr, Hungarian - hu, Italian - it, Japanese - ja, Korean - kr,
-Latvian - la, Lithuanian - lt, Macedonian - mk, Dutch - nl, Polish - pl,
-Portuguese - pt, Romanian - ro, Russian - ru, Swedish - se, Slovak - sk,
-Slovenian - sl, Spanish - es, Turkish - tr, Ukrainian - ua, Vietnamese - vi,
-Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
-*/
-String OPEN_WEATHER_MAP_LANGUAGE = "";
-
-const String MOON_PHASES[] = {"New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous",
-                              "Full Moon", "Waning Gibbous", "Third quarter", "Waning Crescent"};
-
-#define UTC_OFFSET + 1
-struct dstRule StartRule = {"CEST", Last, Sun, Mar, 2, 3600}; // Central European Summer Time = UTC/GMT +2 hours
-struct dstRule EndRule = {"CET", Last, Sun, Oct, 2, 0};       // Central European Time = UTC/GMT +1 hour
-
-// Settings for Boston
-// #define UTC_OFFSET -5
-// struct dstRule StartRule = {"EDT", Second, Sun, Mar, 2, 3600}; // Eastern Daylight time = UTC/GMT -4 hours
-// struct dstRule EndRule = {"EST", First, Sun, Nov, 1, 0};       // Eastern Standard time = UTC/GMT -5 hour
-
-// values in metric or imperial system?
-bool IS_METRIC = true;
-
-// Change for 12 Hour/ 24 hour style clock
-bool IS_STYLE_12HR = false;
-
-// change for different ntp (time servers)
-#define NTP_SERVERS "0.ch.pool.ntp.org", "1.ch.pool.ntp.org", "2.ch.pool.ntp.org"
-// #define NTP_SERVERS "us.pool.ntp.org", "time.nist.gov", "pool.ntp.org"
-
-
 
 
 /***************************
