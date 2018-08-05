@@ -37,7 +37,13 @@ const int UPDATE_INTERVAL_SECS = 20 * 60; // Update every 20 minutes
 // Sign up here to get an API key: https://docs.thingpulse.com/how-tos/openweathermap-key/
 String DISPLAYED_CITY_NAME = "";
 String OPEN_WEATHER_MAP_APP_ID = "";
-String OPEN_WEATHER_MAP_LOCATION = "";
+/*
+Go to https://openweathermap.org/find?q= and search for a location. Go through the
+result set and select the entry closest to the actual location you want to display 
+data for. It'll be a URL like https://openweathermap.org/city/2657896. The number
+at the end is what you assign to the constant below.
+ */
+String OPEN_WEATHER_MAP_LOCATION_ID = "2657896";
 /*
 Arabic -> ar, Bulgarian -> bg, Catalan -> ca, Czech -> cz, German -> de, Greek -> el,
 English -> en, Persian (Farsi) -> fa, Finnish -> fi, French -> fr, Galician -> gl,

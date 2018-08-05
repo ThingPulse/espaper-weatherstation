@@ -104,8 +104,8 @@ boolean saveConfig() {
   f.println(DISPLAYED_CITY_NAME);
   f.print("OPEN_WEATHER_MAP_APP_ID=");
   f.println(OPEN_WEATHER_MAP_APP_ID);
-  f.print("OPEN_WEATHER_MAP_LOCATION=");
-  f.println(OPEN_WEATHER_MAP_LOCATION);
+  f.print("OPEN_WEATHER_MAP_LOCATION_ID=");
+  f.println(OPEN_WEATHER_MAP_LOCATION_ID);
   f.print("OPEN_WEATHER_MAP_LANGUAGE=");
   f.println(OPEN_WEATHER_MAP_LANGUAGE);
   f.close();
@@ -139,8 +139,8 @@ boolean loadConfig() {
       if (key == "OPEN_WEATHER_MAP_APP_ID") {
         OPEN_WEATHER_MAP_APP_ID = value;
       }
-      if (key == "OPEN_WEATHER_MAP_LOCATION") {
-        OPEN_WEATHER_MAP_LOCATION = value;
+      if (key == "OPEN_WEATHER_MAP_LOCATION_ID") {
+        OPEN_WEATHER_MAP_LOCATION_ID = value;
       }
       if (key == "OPEN_WEATHER_MAP_LANGUAGE") {
         OPEN_WEATHER_MAP_LANGUAGE = value;
@@ -169,7 +169,7 @@ void handleRoot() {
   server.sendContent(getFormField("password", "WiFi Password", "20", WIFI_PASS, ""));
   server.sendContent(getFormField("displayedcityname", "Displayed City Name", "40", DISPLAYED_CITY_NAME, ""));
   server.sendContent(getFormField("openweathermapkey", "OpenWeatherMap App ID", "40", OPEN_WEATHER_MAP_APP_ID, ""));
-  server.sendContent(getFormField("openweathermaplocation", "OpenWeatherMap Location (e.g.Zurich,CH)", "40", OPEN_WEATHER_MAP_LOCATION, ""));
+  server.sendContent(getFormField("openweathermaplocationid", "OpenWeatherMap Location ID (e.g. 2657896)", "40", OPEN_WEATHER_MAP_LOCATION_ID, ""));
   server.sendContent("<label for=\"openweathermaplanguage\">OpenWeatherMap Language</label>");
   server.sendContent("<select id=\"openweathermaplanguage\" name=\"openweathermaplanguage\">");
 
@@ -203,13 +203,13 @@ void handleSave() {
   WIFI_PASS = server.arg("password");
   DISPLAYED_CITY_NAME = server.arg("displayedcityname");
   OPEN_WEATHER_MAP_APP_ID = server.arg("openweathermapkey");
-  OPEN_WEATHER_MAP_LOCATION = server.arg("openweathermaplocation");
+  OPEN_WEATHER_MAP_LOCATION_ID = server.arg("openweathermaplocationid");
   OPEN_WEATHER_MAP_LANGUAGE = server.arg("openweathermaplanguage");
   Serial.println(WIFI_SSID);
   Serial.println(WIFI_PASS);
   Serial.println(DISPLAYED_CITY_NAME);
   Serial.println(OPEN_WEATHER_MAP_APP_ID);
-  Serial.println(OPEN_WEATHER_MAP_LOCATION);
+  Serial.println(OPEN_WEATHER_MAP_LOCATION_ID);
   Serial.println(OPEN_WEATHER_MAP_LANGUAGE);
   saveConfig();
   handleRoot();

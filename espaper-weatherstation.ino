@@ -202,14 +202,14 @@ void updateData() {
   conditionsClient->setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
   conditionsClient->setMetric(IS_METRIC);
   Serial.println("\nAbout to call OpenWeatherMap to fetch station's current data...");
-  conditionsClient->updateCurrent(&conditions, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION);
+  conditionsClient->updateCurrentById(&conditions, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID);
   delete conditionsClient;
   conditionsClient = nullptr;
 
   OpenWeatherMapForecast *forecastsClient = new OpenWeatherMapForecast();
   forecastsClient->setMetric(IS_METRIC);
   forecastsClient->setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
-  foundForecasts = forecastsClient->updateForecasts(forecasts, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION, MAX_FORECASTS);
+  foundForecasts = forecastsClient->updateForecastsById(forecasts, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID, MAX_FORECASTS);
   delete forecastsClient;
   forecastsClient = nullptr;
 
