@@ -170,6 +170,7 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
 
       drawTime();
+      drawWifiQuality();
       drawBattery();
       drawCurrentWeather();
       drawForecast();
@@ -444,16 +445,17 @@ int8_t getWifiQuality() {
 
 void drawWifiQuality() {
   int8_t quality = getWifiQuality();
-  gfx.setColor(MINI_WHITE);
-  gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
-  gfx.drawString(228, 9, String(quality) + "%");
+  gfx.setColor(MINI_BLACK);
+  gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
       if (quality > i * 25 || j == 0) {
-        gfx.setPixel(230 + 2 * i, 18 - j);
+        gfx.setPixel(SCREEN_WIDTH / 2 + 35 + 2 * i, 8 - j);
       }
     }
   }
+  Serial.println("WiFi: " + String(quality) + "%");
+  gfx.drawString(SCREEN_WIDTH / 2 + 45, -1, String(quality) + "%");
 }
 
 
@@ -470,7 +472,3 @@ void drawButtons() {
   gfx.drawString(0.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_CONFIG_BUTTON));
   gfx.drawString(2.5 * third, SCREEN_HEIGHT - 12, FPSTR(TEXT_REFRESH_BUTTON));
 }
-
-
-
-
