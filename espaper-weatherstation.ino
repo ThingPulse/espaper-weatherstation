@@ -182,7 +182,7 @@ void setup() {
       gfx.fillBuffer(MINI_WHITE);
       gfx.setColor(MINI_BLACK);
       gfx.setTextAlignment(TEXT_ALIGN_CENTER);
-      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 30, "Could not connect to WiFi\nPress LEFT + RIGHT button\nto enter config mode");
+      gfx.drawString(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 40, "Could not connect to WiFi.\nPress and hold LEFT button +\npress and release RIGHT button\nto enter config mode");
       gfx.commit();
     }
     Serial.println("Going to sleep");
