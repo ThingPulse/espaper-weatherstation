@@ -89,7 +89,6 @@ String getFormField(String id, String placeholder, String length, String value, 
   return pitem;
 }
 
-
 boolean saveConfig() {
   File f = SPIFFS.open("/espaper.txt", "w+");
   if (!f) {
@@ -194,6 +193,7 @@ void handleRoot() {
   server.sendContent("<br/><br/>");
   server.sendContent(FPSTR(HTTP_FORM_END));
   server.sendContent(FPSTR(HTTP_END));
+  server.sendContent("");
   server.client().stop();
 
 }
@@ -234,8 +234,6 @@ void handleNotFound() {
   //digitalWrite ( led, 0 );
 }
 
-
-
 void startConfigPortal(MiniGrafx *gfx) {
 
   server.on ( "/", handleRoot );
@@ -258,21 +256,16 @@ void startConfigPortal(MiniGrafx *gfx) {
       Serial.println ( "Open browser at http://" + WiFi.localIP() );
 
       gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnected to: " + WiFi.SSID() + "\nOpen browser at\nhttp://" + WiFi.localIP().toString());
-
   } else {
       WiFi.mode(WIFI_AP);
       WiFi.softAP(CONFIG_SSID.c_str());
       IPAddress myIP = WiFi.softAPIP();
       Serial.println(myIP);
 
-
       gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnect WiFi to:\n" + CONFIG_SSID + "\nOpen browser at\nhttp://" + myIP.toString());
-
   }
 
   gfx->commit();
-
-
 
   Serial.println ( "HTTP server started" );
 
