@@ -294,7 +294,7 @@ void drawCurrentWeather() {
   // It'll later be drawn over by the forecast boxes.
   // Just a workaround until https://github.com/ThingPulse/minigrafx/issues/27 is fixed.
   gfx.setColor(MINI_WHITE);
-  gfx.fillRect(SCREEN_WIDTH / 2 - 35, 48, SCREEN_WIDTH, 14);
+  gfx.fillRect(SCREEN_WIDTH / 2 - 35, 52, SCREEN_WIDTH, 12);
 }
 
 unsigned int hourAddWrap(unsigned int hour, unsigned int add) {
@@ -323,12 +323,11 @@ void drawForecastDetail(uint16_t x, uint16_t y, uint8_t index) {
   time_t observation = forecasts[index].observationTime + dstOffset;
   struct tm* observationTm = localtime(&observation);
 
+  gfx.setColor(MINI_BLACK);
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_CENTER);
 
   gfx.drawString(x + 19, y - 2, String(observationTm->tm_hour) + ":00");
-
-  gfx.setColor(MINI_BLACK);
   gfx.drawString(x + 19, y + 9, String(forecasts[index].temp,0) + "°");
   gfx.drawString(x + 19, y + 36, String(forecasts[index].rain,0) + (IS_METRIC ? "mm" : "in"));
 
