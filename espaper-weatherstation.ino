@@ -288,10 +288,13 @@ void drawCurrentWeather() {
 
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
-  gfx.drawString(55, 50, conditions.description);
+  gfx.drawString(55, 51, conditions.description);
   gfx.drawLine(0, 65, SCREEN_WIDTH, 65);
-
-
+  // Remove any condition description that's too long by "covering" it with a white rectangle.
+  // It'll later be drawn over by the forecast boxes.
+  // Just a workaround until https://github.com/ThingPulse/minigrafx/issues/27 is fixed.
+  gfx.setColor(MINI_WHITE);
+  gfx.fillRect(SCREEN_WIDTH / 2 - 35, 48, SCREEN_WIDTH, 14);
 }
 
 unsigned int hourAddWrap(unsigned int hour, unsigned int add) {
