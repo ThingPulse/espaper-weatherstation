@@ -32,14 +32,14 @@ See more at http://blog.squix.ch
   const char TEXT_UPDATED[] PROGMEM            = "Aktualisiert:";
   const char TEXT_SUN[] PROGMEM                = "Sonne:";
   const char TEXT_MOON[] PROGMEM               = "Mond:";
-  const String MOON_PHASES[]                   = {"Neumond", "erstes Viertel", "zunehmender Halbmond", "zweites Viertel",
-                                                  "Vollmond", "drittes Viertel", "abnehmender Halbmond", "letztes Viertel"};
+  const String MOON_PHASES[]                   = {"Neumond", "erstes Viertel", "zunehmender Mond", "zweites Viertel",
+                                                  "Vollmond", "drittes Viertel", "abnehmender Mond", "letztes Viertel"};
 #elif LANG == 'FR'
   const char TEXT_REFRESH_BUTTON[] PROGMEM     = "ACTUALISER";
   const char TEXT_CONFIG_BUTTON[] PROGMEM      = "CONFIG + RST";
   const char TEXT_UPDATED[] PROGMEM            = "Mise à jour ";
   const char TEXT_SUN[] PROGMEM                = "Soleil:";
   const char TEXT_MOON[] PROGMEM               = "Lune:";
-  const String MOON_PHASES[]                   = {"New Moon", "premier croissant", "premier quartier", "gibbeuse croissante",
-                                                  "pleine lune", "gibbeuse décroissante", "dernier quartier", "dernier croissant"};  
+  const String MOON_PHASES[]                   = {"nouvelle lune", "premier croissant", "premier quartier", "lune croissante",
+                                                  "pleine lune", "lune décroissante", "dernier quartier", "dernier croissant"};  
 #endif
