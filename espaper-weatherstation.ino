@@ -116,6 +116,11 @@ uint16_t screen = 0;
 long timerPress;
 bool canBtnPress;
 
+typedef struct BatteryData {
+  uint8_t percentage;
+  float voltage;
+} BatteryData;
+
 boolean connectWifi() {
   if (WiFi.status() == WL_CONNECTED) return true;
   //Manual Wifi
@@ -415,22 +420,33 @@ void drawAstronomy() {
   //gfx.drawString(55, 104, "8:30 - 11:20");
 }
 
-void drawBattery() {
+BatteryData calculateBatteryData() {
+  BatteryData data = BatteryData();
+
   uint8_t percentage = 100;
   float adcVoltage = analogRead(A0) / 1024.0;
   // This values where empirically collected
-  float batteryVoltage = adcVoltage * 4.945945946 -0.3957657658;
-  if (batteryVoltage > 4.2) percentage = 100;
-  else if (batteryVoltage < 3.3) percentage = 0;
-  else percentage = (batteryVoltage - 3.3) * 100 / (4.2 - 3.3);
+  float voltage = adcVoltage * 4.945945946 -0.3957657658;
+  if (voltage > 4.2) percentage = 100;
+  else if (voltage < 3.3) percentage = 0;
+  else percentage = (voltage - 3.3) * 100 / (4.2 - 3.3);
+
+  data.percentage = percentage;
+  data.voltage = voltage;
+  
+  return data;
+}
+
+void drawBattery() {
+  BatteryData data = calculateBatteryData();
 
   gfx.setColor(MINI_BLACK);
   gfx.setFont(ArialMT_Plain_10);
   gfx.setTextAlignment(TEXT_ALIGN_RIGHT);
-  gfx.drawString(SCREEN_WIDTH - 22, -1, String(batteryVoltage, 2) + "V " + String(percentage) + "%");
+  gfx.drawString(SCREEN_WIDTH - 22, -1, String(data.voltage, 2) + "V " + String(data.percentage) + "%");
   gfx.drawRect(SCREEN_WIDTH - 22, 0, 19, 10);
   gfx.fillRect(SCREEN_WIDTH - 2, 2, 2, 6);
-  gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * percentage / 100, 6);
+  gfx.fillRect(SCREEN_WIDTH - 20, 2, 16 * data.percentage / 100, 6);
 }
 
 // converts the dBm to a range between 0 and 100%
@@ -445,19 +461,34 @@ int8_t getWifiQuality() {
   }
 }
 
+uint8_t getDigits(uint8_t number) {
+  int digits = 0; 
+  do { 
+    number /= 10; 
+    digits++;
+  } while (number != 0);
+  return digits;
+}
+
 void drawWifiQuality() {
   int8_t quality = getWifiQuality();
+  BatteryData batteryData = calculateBatteryData();
+
+  // 6 pixels per digit
+  uint8_t offset = 69 - (6 * (getDigits(quality) + getDigits(batteryData.percentage)));
+  
   gfx.setColor(MINI_BLACK);
   gfx.setTextAlignment(TEXT_ALIGN_LEFT);
   for (int8_t i = 0; i < 4; i++) {
     for (int8_t j = 0; j < 2 * (i + 1); j++) {
       if (quality > i * 25 || j == 0) {
-        gfx.setPixel(SCREEN_WIDTH / 2 + 35 + 2 * i, 8 - j);
+        gfx.setPixel(SCREEN_WIDTH / 2 + (offset - 10) + 2 * i, 8 - j);
       }
     }
   }
+
   Serial.println("WiFi: " + String(quality) + "%");
-  gfx.drawString(SCREEN_WIDTH / 2 + 45, -1, String(quality) + "%");
+  gfx.drawString(SCREEN_WIDTH / 2 + offset, -1, String(quality) + "%");
 }
 
 
