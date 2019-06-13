@@ -74,7 +74,9 @@ bool IS_STYLE_12HR = false;
 #define NTP_SERVERS "0.ch.pool.ntp.org", "1.ch.pool.ntp.org", "2.ch.pool.ntp.org"
 // #define NTP_SERVERS "us.pool.ntp.org", "time.nist.gov", "pool.ntp.org"
 
-
+// August 1st, 2018
+#define NTP_MIN_VALID_EPOCH 1533081600
+#define NTP_SYNC_TIMEOUT_SECONDS 5
 
 /*
  * BUSY---->gpio4

@@ -221,21 +221,26 @@ void updateData() {
 
   // Wait max. 3 seconds to make sure the time has been sync'ed
   Serial.println("\nWaiting for time");
-  unsigned timeout = 3000;
-  unsigned start = millis();
-  while (millis() - start < timeout) {
-    time_t now = time(nullptr);
-    if (now) {
+  time_t now;
+  uint32_t startTime = millis();
+  uint16_t ntpTimeoutMillis = NTP_SYNC_TIMEOUT_SECONDS * 1000;
+  while((now = time(nullptr)) < NTP_MIN_VALID_EPOCH) {
+    uint32_t runtimeMillis = millis() - startTime;
+    if (runtimeMillis > ntpTimeoutMillis) {
+      Serial.printf("\nFailed to sync time through NTP. Giving up after %dms.\n", runtimeMillis);
       break;
     }
     Serial.println(".");
-    delay(100);
+    delay(300);
   }
 
-  dstOffset = UTC_OFFSET * 3600 + dstAdjusted.time(nullptr) - time(nullptr);
+  dstOffset = UTC_OFFSET * 3600 + dstAdjusted.time(nullptr) - now;
+
+  Serial.printf("Current time: %d\n", now);
+  Serial.printf("UTC offset: %d\n\n", dstOffset);
 
   Astronomy *astronomy = new Astronomy();
-  time_t now = time(nullptr) + dstOffset;
+  now = now + dstOffset;
   moonData = astronomy->calculateMoonData(now);
   // illumination is not uniquely clear to identify moon age. e.g. 70% illumination happens twice in a full cycle
   float lunarMonth = 29.53;
