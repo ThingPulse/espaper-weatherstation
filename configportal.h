@@ -21,20 +21,20 @@ See more at http://blog.squix.ch
 #include <ESP8266WebServer.h>
 #include <MiniGrafx.h>
 
-const char HTTP_HEAD[] PROGMEM            = "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\"/><title>{v}</title>";
-const char HTTP_STYLE[] PROGMEM           = "<style>.c{text-align: center;} div,input, select{padding:5px;font-size:1em;} input, select{width:95%;} body{text-align: center;font-family:verdana;} button{border:0;border-radius:0.3rem;background-color:#1fa3ec;color:#fff;line-height:2.4rem;font-size:1.2rem;width:100%;} .q{float: right;width: 64px;text-align: right;} .l{background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAALVBMVEX///8EBwfBwsLw8PAzNjaCg4NTVVUjJiZDRUUUFxdiZGSho6OSk5Pg4eFydHTCjaf3AAAAZElEQVQ4je2NSw7AIAhEBamKn97/uMXEGBvozkWb9C2Zx4xzWykBhFAeYp9gkLyZE0zIMno9n4g19hmdY39scwqVkOXaxph0ZCXQcqxSpgQpONa59wkRDOL93eAXvimwlbPbwwVAegLS1HGfZAAAAABJRU5ErkJggg==\") no-repeat left center;background-size: 1em;}</style>";
-const char HTTP_SCRIPT[] PROGMEM          = "<script>function c(l){document.getElementById('s').value=l.innerText||l.textContent;document.getElementById('p').focus();}</script>";
-const char HTTP_HEAD_END[] PROGMEM        = "</head><body><div style='text-align:left;display:inline-block;min-width:260px;'>";
-const char HTTP_PORTAL_OPTIONS[] PROGMEM  = "<form action=\"/wifi\" method=\"get\"><button>Configure WiFi</button></form><br/><form action=\"/0wifi\" method=\"get\"><button>Configure WiFi (No Scan)</button></form><br/><form action=\"/i\" method=\"get\"><button>Info</button></form><br/><form action=\"/r\" method=\"post\"><button>Reset</button></form>";
-const char HTTP_ITEM[] PROGMEM            = "<div><a href='#p' onclick='c(this)'>{v}</a>&nbsp;<span class='q {i}'>{r}%</span></div>";
-const char HTTP_FORM_START[] PROGMEM      = "<form method='post' action='save'><br/>";
-const char HTTP_FORM_PARAM[] PROGMEM      = "<label for='{i}'>{p}</label><br/><input id='{i}' name='{n}' maxlength={l}  value='{v}' {c}><br/><br/>";
-const char HTTP_FORM_END[] PROGMEM        = "<br/><button type='submit'>Save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESPaper Display</button></form>";
-const char HTTP_SCAN_LINK[] PROGMEM       = "<br/><div class=\"c\"><a href=\"/wifi\">Scan</a></div>";
-const char HTTP_SAVED[] PROGMEM           = "<div>Credentials Saved<br />Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
-const char HTTP_END[] PROGMEM             = "</div></body></html>";
-const char HTTP_OPTION_ITEM[] PROGMEM     = "<option value=\"{v}\" {s}>{n}</option>";
-const char HTTP_WG_LANGUAGES[] PROGMEM    = "See <a href='https://www.wunderground.com/weather/api/d/docs?d=language-support' target=_blank>Language Codes</a> for explanation.";
+const char HTML_HEAD[] PROGMEM            = "<!DOCTYPE html><html lang=\"en\"><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\"/><title>{v}</title>";
+const char HTML_STYLE[] PROGMEM           = "<style>.c{text-align: center;} div,input, select{padding:5px;font-size:1em;} input, select{width:95%;} body{text-align: center;font-family:verdana;} button{border:0;border-radius:0.3rem;background-color:#1fa3ec;color:#fff;line-height:2.4rem;font-size:1.2rem;width:100%;} .q{float: right;width: 64px;text-align: right;} .l{background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAALVBMVEX///8EBwfBwsLw8PAzNjaCg4NTVVUjJiZDRUUUFxdiZGSho6OSk5Pg4eFydHTCjaf3AAAAZElEQVQ4je2NSw7AIAhEBamKn97/uMXEGBvozkWb9C2Zx4xzWykBhFAeYp9gkLyZE0zIMno9n4g19hmdY39scwqVkOXaxph0ZCXQcqxSpgQpONa59wkRDOL93eAXvimwlbPbwwVAegLS1HGfZAAAAABJRU5ErkJggg==\") no-repeat left center;background-size: 1em;}</style>";
+const char HTML_SCRIPT[] PROGMEM          = "<script>function c(l){document.getElementById('s').value=l.innerText||l.textContent;document.getElementById('p').focus();}</script>";
+const char HTML_HEAD_END[] PROGMEM        = "</head><body><div style='text-align:left;display:inline-block;min-width:260px;'>";
+const char HTML_PORTAL_OPTIONS[] PROGMEM  = "<form action=\"/wifi\" method=\"get\"><button>Configure WiFi</button></form><br/><form action=\"/0wifi\" method=\"get\"><button>Configure WiFi (No Scan)</button></form><br/><form action=\"/i\" method=\"get\"><button>Info</button></form><br/><form action=\"/r\" method=\"post\"><button>Reset</button></form>";
+const char HTML_ITEM[] PROGMEM            = "<div><a href='#p' onclick='c(this)'>{v}</a>&nbsp;<span class='q {i}'>{r}%</span></div>";
+const char HTML_FORM_START[] PROGMEM      = "<form method='post' action='save'><br/>";
+const char HTML_FORM_PARAM[] PROGMEM      = "<label for='{i}'>{p}</label><br/><input id='{i}' name='{n}' maxlength={l}  value='{v}' {c}><br/><br/>";
+const char HTML_FORM_END[] PROGMEM        = "<br/><button type='submit'>Save</button></form><br/><form action=\"/reset\" method=\"get\"><button>Restart ESPaper Display</button></form>";
+const char HTML_SCAN_LINK[] PROGMEM       = "<br/><div class=\"c\"><a href=\"/wifi\">Scan</a></div>";
+const char HTML_SAVED[] PROGMEM           = "<div>Credentials Saved<br />Trying to connect ESP to network.<br />If it fails reconnect to AP to try again</div>";
+const char HTML_END[] PROGMEM             = "</div></body></html>";
+const char HTML_OPTION_ITEM[] PROGMEM     = "<option value=\"{v}\" {s}>{n}</option>";
+const char HTML_WG_LANGUAGES[] PROGMEM    = "See <a href='https://www.wunderground.com/weather/api/d/docs?d=language-support' target=_blank>Language Codes</a> for explanation.";
 
 const char language_0[] PROGMEM = "Arabic|ar";
 const char language_1[] PROGMEM = "Bulgarian|bg";
@@ -78,7 +78,7 @@ const char* const language_table[] PROGMEM = {language_0, language_1, language_2
 ESP8266WebServer server (80);
 
 String getFormField(String id, String placeholder, String length, String value, String customHTML) {
-    String pitem = FPSTR(HTTP_FORM_PARAM);
+    String pitem = FPSTR(HTML_FORM_PARAM);
 
     pitem.replace("{i}", id);
     pitem.replace("{n}", id);
@@ -154,16 +154,16 @@ boolean loadConfig() {
 void handleRoot() {
   server.setContentLength(CONTENT_LENGTH_UNKNOWN);
   server.send(200, "text/html", "");
-  String header = FPSTR(HTTP_HEAD);
+  String header = FPSTR(HTML_HEAD);
   header.replace("{v}", "Options");
   server.sendContent(header);
-  server.sendContent(FPSTR(HTTP_SCRIPT));
-  server.sendContent(FPSTR(HTTP_STYLE));
-  server.sendContent(FPSTR(HTTP_HEAD_END));
+  server.sendContent(FPSTR(HTML_SCRIPT));
+  server.sendContent(FPSTR(HTML_STYLE));
+  server.sendContent(FPSTR(HTML_HEAD_END));
   server.sendContent("<h1>ESPaper Configuration</h1>");
 
-  //page += FPSTR(HTTP_PORTAL_OPTIONS);
-  server.sendContent(FPSTR(HTTP_FORM_START));
+  //page += FPSTR(HTML_PORTAL_OPTIONS;
+  server.sendContent(FPSTR(HTML_FORM_START));
   server.sendContent(getFormField("ssid", "WiFi SSID", "20", WIFI_SSID, ""));
   server.sendContent(getFormField("password", "WiFi Password", "20", WIFI_PASS, ""));
   server.sendContent(getFormField("displayedcityname", "Displayed City Name", "40", DISPLAYED_CITY_NAME, ""));
@@ -173,7 +173,7 @@ void handleRoot() {
   server.sendContent("<select id=\"openweathermaplanguage\" name=\"openweathermaplanguage\">");
 
   for (int i = 0; i < 32; i++) {
-    String option = FPSTR(HTTP_OPTION_ITEM);
+    String option = FPSTR(HTML_OPTION_ITEM);
     String language = FPSTR(language_table[i]);
     int separatorPos = language.indexOf("|");
 
@@ -191,8 +191,8 @@ void handleRoot() {
   }
   server.sendContent("</select>");
   server.sendContent("<br/><br/>");
-  server.sendContent(FPSTR(HTTP_FORM_END));
-  server.sendContent(FPSTR(HTTP_END));
+  server.sendContent(FPSTR(HTML_FORM_END));
+  server.sendContent(FPSTR(HTML_END));
   server.sendContent("");
   server.client().stop();
 
