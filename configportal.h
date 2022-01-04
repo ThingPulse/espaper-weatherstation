@@ -253,7 +253,7 @@ void startConfigPortal(MiniGrafx *gfx) {
   gfx->setFont(ArialMT_Plain_16);
 
   if (connected) {
-      Serial.println ( "Open browser at http://" + WiFi.localIP() );
+      Serial.println ( "Open browser at http://" + WiFi.localIP().toString() );
 
       gfx->drawString(296 / 2, 10, "ESPaper Setup Mode\nConnected to: " + WiFi.SSID() + "\nOpen browser at\nhttp://" + WiFi.localIP().toString());
   } else {
